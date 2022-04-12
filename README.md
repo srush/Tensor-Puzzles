@@ -1,4 +1,4 @@
-# tensor twisters
+# Tensor Twisters
 
 ## Puzzle 1:
 
