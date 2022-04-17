@@ -5,7 +5,7 @@
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/srush/Tensor-Puzzles/blob/main/Tensor%20Puzzlers.ipynb)
 
-![](https://raw.githubusercontent.com/srush/Tensor-Puzzles/main/chess.jpeg)
+
 
 When learning a tensor programming language like PyTorch or Numpy it
 is tempting to rely on the standard library (or more honestly
@@ -13,10 +13,14 @@ StackOverflow) to find a magic function for everything.  But in
 practice, the tensor language is extremely expressive, and you can
 do most things from first principles and clever use of broadcasting.
 
+
+
 This is a collection of 16 tensor puzzles. Like chess puzzles these are
 not meant to simulate the complexity of a real program, but to practice
 in a simplified environment. Each puzzle asks you to reimplement one
 function in the NumPy standard library without magic. 
+
+![](https://raw.githubusercontent.com/srush/Tensor-Puzzles/main/chess.jpeg)
 
 * [Puzzle 1 - ones](#puzzle-1---ones).
 * [Puzzle 2 - sum](#puzzle-2---sum).
