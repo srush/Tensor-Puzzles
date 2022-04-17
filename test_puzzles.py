@@ -44,7 +44,6 @@
 
 # +
 import torch
-from torchtyping import TensorType as TT
 
 
 def arange(i: int):
@@ -78,6 +77,7 @@ def where(q, a, b):
 # 3. Run on your machine  with `pytest`. (First `pip install -r requirements.txt`)
 
 # If you are runing in a notebook, just uncomment the test for each example.
+# If the test succeeds nothing will be printed.
 
 # [Start at Puzzle 1!](#puzzle-1---ones).
 
@@ -86,15 +86,17 @@ def where(q, a, b):
 # ### Test Harness
 
 # +
-# !pip install torchtyping hypothesis pytest
+# !pip install -qqq torchtyping hypothesis pytest
 
 # +
 
 import typing
+from torchtyping import TensorType as TT
 from hypothesis.extra.numpy import arrays
 from hypothesis.strategies import integers, tuples, composite, floats
 from hypothesis import given
 import numpy as np
+
 
 
 size = integers(min_value=1, max_value=5)
