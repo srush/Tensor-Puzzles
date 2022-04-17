@@ -7,16 +7,34 @@
 
 # ![](https://raw.githubusercontent.com/srush/Tensor-Puzzles/main/chess.jpeg)
 
-# When learning a tensor programming language like PyTorch or
-# Numpy it is tempting to rely on the standard library (or more
-# honestly StackOverflow) to find a magic function for everything.
-# But in practice, the tensor language is extremely expressive.
-# You can do most things from first principles.
+# When learning a tensor programming language like PyTorch or Numpy it
+# is tempting to rely on the standard library (or more honestly
+# StackOverflow) to find a magic function for everything.  But in
+# practice, the tensor language is extremely expressive, and you can
+# do most things from first principles and clever use of broadcasting.
 
-# This is a collection of 15 tensor puzzles. Like chess puzzles these are
+# This is a collection of 16 tensor puzzles. Like chess puzzles these are
 # not meant to simulate the complexity of a real program, but to practice
 # in a simplified environment. Each puzzle asks you to reimplement one
-# function in the NumPy standard.
+# function in the NumPy standard library without magic. 
+
+# * [Puzzle 1 - ones](#puzzle-1---ones).
+# * [Puzzle 2 - sum](#puzzle-2---sum).
+# * [Puzzle 3 - outer](#puzzle-3---outer).
+# * [Puzzle 4 - diag](#puzzle-4---diag).
+# * [Puzzle 5 - eye](#puzzle-5---eye).
+# * [Puzzle 6 - triu](#puzzle-6---triu).
+# * [Puzzle 7 - cumsum](#puzzle-7---cumsum).
+# * [Puzzle 8 - diff](#puzzle-8---diff).
+# * [Puzzle 9 - vstack](#puzzle-9---vstack).
+# * [Puzzle 10 - roll](#puzzle-10---roll).
+# * [Puzzle 11 - flip](#puzzle-11---flip).
+# * [Puzzle 12 - compress](#puzzle-12---compress).
+# * [Puzzle 13 - pad_to](#puzzle-13---pad_to).
+# * [Puzzle 14 - sequence_mask](#puzzle-14---sequence_mask).
+# * [Puzzle 15 - bincount](#puzzle-15---bincount).
+# * [Puzzle 16 - scatter_add](#puzzle-16---scatter_add).
+
 
 # ## Rules
 
@@ -64,22 +82,6 @@ def where(q, a, b):
 # [Start at Puzzle 1!](#puzzle-1---ones).
 
 
-# * [Puzzle 1 - ones](#puzzle-1---ones).
-# * [Puzzle 2 - sum](#puzzle-2---sum).
-# * [Puzzle 3 - outer](#puzzle-3---outer).
-# * [Puzzle 4 - diag](#puzzle-4---diag).
-# * [Puzzle 5 - eye](#puzzle-5---eye).
-# * [Puzzle 6 - triu](#puzzle-6---triu).
-# * [Puzzle 7 - cumsum](#puzzle-7---cumsum).
-# * [Puzzle 8 - diff](#puzzle-8---diff).
-# * [Puzzle 9 - vstack](#puzzle-9---vstack).
-# * [Puzzle 10 - roll](#puzzle-10---roll).
-# * [Puzzle 11 - flip](#puzzle-11---flip).
-# * [Puzzle 12 - compress](#puzzle-12---compress).
-# * [Puzzle 13 - pad_to](#puzzle-13---pad_to).
-# * [Puzzle 14 - sequence_mask](#puzzle-14---sequence_mask).
-# * [Puzzle 15 - bincount](#puzzle-15---bincount).
-# * [Puzzle 16 - scatter_add](#puzzle-16---scatter_add).
 
 # ### Test Harness
 
