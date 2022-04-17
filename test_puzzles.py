@@ -76,10 +76,10 @@ def where(q, a, b):
 
 # To play, fork this repo,
 
-```bash
-pip install -r requirements.txt
-pytest test_puzzles.py
-```
+# ```bash
+# pip install -r requirements.txt
+# pytest test_puzzles.py
+# ```
 
 # Alternatively you can play in Colab above or in a notebook on your machine.
 
