@@ -1,6 +1,6 @@
 # + [markdown]
 # # Tensor Puzzles
-# - by [Sasha Rush](http://rush-nlp.com) ([@srush_nlp](https://twitter.com/srush_nlp))
+# - by [Sasha Rush](http://rush-nlp.com) ( [@srush_nlp](https://twitter.com/srush_nlp) )
 #
 
 # [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/srush/Tensor-Puzzles/blob/main/Tensor%20Puzzlers.ipynb)
@@ -484,7 +484,7 @@ test_sequence = make_test(
 
 
 # + [markdown]
-# ## Puzzle 15: bincount
+# ## Puzzle 15 - bincount
 #
 # Compute [bincount](https://numpy.org/doc/stable/reference/generated/numpy.bincount.html) - count number of times an entry was seen.
 
@@ -512,7 +512,7 @@ test_bincount = make_test(
 
 
 # + [markdown]
-# ## Puzzle 16: scatter_add
+# ## Puzzle 16 - scatter_add
 #
 # Compute `scatter_add` - add togeter values that scatter together.
 
