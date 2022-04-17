@@ -5,8 +5,7 @@
 
 # [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/srush/Tensor-Puzzles/blob/main/Tensor%20Puzzlers.ipynb)
 
-
-# ![]()
+# ![](https://raw.githubusercontent.com/srush/Tensor-Puzzles/main/chess.jpeg)
 
 # When learning a tensor programming language like PyTorch or
 # Numpy it is tempting to rely on the standard library (or more
