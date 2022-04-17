@@ -86,7 +86,7 @@ def where(q, a, b):
 # [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/srush/Tensor-Puzzles/blob/main/Tensor%20Puzzlers.ipynb)
 
 # If you are runing in a notebook, just uncomment the test for each example.
-# If the test succeeds nothing will be printed.
+# If the test succeeds you will get a puppy. 
 
 # [Start at Puzzle 1!](#puzzle-1---ones).
 
@@ -105,7 +105,7 @@ from hypothesis.extra.numpy import arrays
 from hypothesis.strategies import integers, tuples, composite, floats
 from hypothesis import given
 import numpy as np
-
+import random
 
 
 size = integers(min_value=1, max_value=5)
@@ -188,6 +188,58 @@ def make_test(problem, problem_spec, add_sizes=[], constraint=lambda d: d):
 
     return test_problem
 
+def run_test(fn):
+    fn()
+    # Generate a random puppy video if you are correct.
+    print("Correct!")
+    from IPython.display import HTML
+    pups = [
+    "2m78jPG",
+    "pn1e9TO",
+    "MQCIwzT",
+    "udLK6FS",
+    "ZNem5o3",
+    "DS2IZ6K",
+    "aydRUz8",
+    "MVUdQYK",
+    "kLvno0p",
+    "wScLiVz",
+    "Z0TII8i",
+    "F1SChho",
+    "9hRi2jN",
+    "lvzRF3W",
+    "fqHxOGI",
+    "1xeUYme",
+    "6tVqKyM",
+    "CCxZ6Wr",
+    "lMW0OPQ",
+    "wHVpHVG",
+    "Wj2PGRl",
+    "HlaTE8H",
+    "k5jALH0",
+    "3V37Hqr",
+    "Eq2uMTA",
+    "Vy9JShx",
+    "g9I2ZmK",
+    "Nu4RH7f",
+    "sWp0Dqd",
+    "bRKfspn",
+    "qawCMl5",
+    "2F6j2B4",
+    "fiJxCVA",
+    "pCAIlxD",
+    "zJx2skh",
+    "2Gdl1u7",
+    "aJJAY4c",
+    "ros6RLC",
+    "DKLBJh7",
+    "eyxH0Wc",
+    "rJEkEw4"]
+    return HTML("""
+    <video alt="test" controls autoplay=1>
+        <source src="https://openpuppies.com/mp4/%s.mp4"  type="video/mp4">
+    </video>
+    """%(random.sample(pups, 1)[0]))
 
 # + [markdown]
 # ## Puzzle 1 - ones
@@ -206,7 +258,7 @@ def ones(i: int) -> TT["i"]:
 
 
 test_ones = make_test(ones, ones_spec, add_sizes=["i"])
-# test_ones()
+# run_test(test_ones)
 
 
 # + [markdown]
@@ -227,7 +279,7 @@ def sum(a: TT["i"]) -> TT[1]:
 
 
 test_sum = make_test(sum, sum_spec)
-# test_sum()
+# run_test(test_sum)
 
 
 # + [markdown]
@@ -248,7 +300,7 @@ def outer(a: TT["i"], b: TT["j"]) -> TT["i", "j"]:
 
 
 test_outer = make_test(outer, outer_spec)
-# test_outer()
+# run_test(test_outer)
 
 
 # + [markdown]
@@ -268,7 +320,7 @@ def diag(a: TT["i", "i"]) -> TT["i"]:
 
 
 test_diag = make_test(diag, diag_spec)
-# test_diag()
+# run_test(test_diag)
 
 # + [markdown]
 # ## Puzzle 5 - eye
@@ -288,7 +340,7 @@ def eye(j: int) -> TT["j", "j"]:
 
 # +
 test_eye = make_test(eye, eye_spec, add_sizes=["j"])
-# test_eye()
+# run_test(test_eye)
 
 # + [markdown]
 # ## Puzzle 6 - triu
@@ -311,7 +363,7 @@ def triu(j: int) -> TT["j", "j"]:
 
 
 test_triu = make_test(triu, triu_spec, add_sizes=["j"])
-# test_triu()
+# run_test(test_triu)
 
 # + [markdown]
 # ## Puzzle 7 - cumsum
@@ -332,7 +384,7 @@ def cumsum(a: TT["i"]) -> TT["i"]:
 
 
 test_cumsum = make_test(cumsum, cumsum_spec)
-# test_cumsum()
+# run_test(test_cumsum)
 
 
 # + [markdown]
@@ -353,7 +405,7 @@ def diff(a: TT["i"], i: int) -> TT["i"]:
 
 
 test_diff = make_test(diff, diff_spec, add_sizes=["i"])
-# test_diff()
+# run_test(test_diff)
 
 # + [markdown]
 # ## Puzzle 9 - vstack
@@ -373,7 +425,7 @@ def vstack(a: TT["i"], b: TT["i"]) -> TT[2, "i"]:
 
 
 test_vstack = make_test(vstack, vstack_spec)
-# test_vstack()
+# run_test(test_vstack)
 
 # + [markdown]
 # ## Puzzle 10 - roll
@@ -395,7 +447,7 @@ def roll(a: TT["i"], i: int) -> TT["i"]:
 
 
 test_roll = make_test(roll, roll_spec, add_sizes=["i"])
-# test_roll()
+# run_test(test_roll)
 
 # + [markdown]
 # ## Puzzle 11 - flip
@@ -414,7 +466,7 @@ def flip(a: TT["i"], i: int) -> TT["i"]:
 
 
 test_flip = make_test(flip, flip_spec, add_sizes=["i"])
-# test_flip()
+# run_test(test_flip)
 
 # + [markdown]
 # ## Puzzle 12 - compress
@@ -437,7 +489,7 @@ def compress(groups: TT["i", bool], values: TT["i"]) -> TT["i"]:
 
 
 test_compress = make_test(compress, compress_spec)
-# test_compress()
+# run_test(test_compress)
 
 
 # + [markdown]
@@ -458,7 +510,7 @@ def pad_to(a: TT["i"], i: int, j: int) -> TT["j"]:
 
 
 test_pad_to = make_test(pad_to, pad_to_spec, add_sizes=["i", "j"])
-# test_pad_to()
+# run_test(test_pad_to)
 
 
 # + [markdown]
@@ -491,7 +543,7 @@ test_sequence = make_test(
     sequence_mask, sequence_mask_spec, constraint=constraint_set_length
 )
 
-# test_sequence()
+# run_test(test_sequence)
 
 
 # + [markdown]
@@ -519,7 +571,7 @@ def constraint_set_max(d):
 test_bincount = make_test(
     bincount, bincount_spec, add_sizes=["j"], constraint=constraint_set_max
 )
-# test_bincount()
+# run_test(test_bincount)
 
 
 # + [markdown]
@@ -547,4 +599,4 @@ def constraint_set_max(d):
 test_scatter_add = make_test(
     scatter_add, scatter_add_spec, add_sizes=["j"], constraint=constraint_set_max
 )
-# test_scatter_add()
+# run_test(test_scatter_add)
