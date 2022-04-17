@@ -76,11 +76,16 @@ Each example, corresponds to a unit test which will randomly
 try to break your code based on the spec. The spec is written in
 standard python with lists.
 
-There are three ways to play.
+To play, fork this repo,
 
-1. Use Colab above.
-2. Run the notebook on your machine.
-3. Run on your machine  with `pytest`. (First `pip install -r requirements.txt`)
+```bash
+pip install -r requirements.txt
+pytest test_puzzles.py
+```
+
+Alternatively you can play in Colab above or in a notebook on your machine.
+
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/srush/Tensor-Puzzles/blob/main/Tensor%20Puzzlers.ipynb)
 
 If you are runing in a notebook, just uncomment the test for each example.
 If the test succeeds nothing will be printed.
