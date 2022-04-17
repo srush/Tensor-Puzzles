@@ -1,20 +1,3 @@
----
-jupyter:
-  jupytext:
-    main_language: python
-    text_representation:
-      extension: .md
-      format_name: markdown
-      format_version: '1.3'
-      jupytext_version: 1.13.8
-  kernelspec:
-    display_name: Python 3
-    name: python3
----
-
-```python
-
-```
 <!-- #region -->
 # Tensor Puzzles
 - [Sasha Rush](http://rush-nlp.com)
@@ -185,7 +168,6 @@ def ones_spec(out):
 
 ```python
 def ones(i: int) -> TensorType["i"]:
-    # CHALLENGE
     assert False, 'Not implemented yet.'
 
 
@@ -207,7 +189,6 @@ def sum_spec(a, out):
 
 ```python
 def sum(a: TensorType["i"]) -> TensorType[1]:
-    # CHALLENGE
     assert False, 'Not implemented yet.'
 
 
@@ -234,7 +215,6 @@ def outer(
     ],
     b: TensorType["j"],
 ) -> TensorType["i", "j"]:
-    # CHALLENGE
     assert False, 'Not implemented yet.'
 
 
@@ -255,7 +235,6 @@ def diag_spec(a, out):
 
 ```python
 def diag(a: TensorType["i", "i"]) -> TensorType["i"]:
-    # CHALLENGE
     assert False, 'Not implemented yet.'
 
 
@@ -299,7 +278,6 @@ def triu_spec(out):
 
 ```python
 def triu(j: int) -> TensorType["j", "j"]:
-    # CHALLENGE
     assert False, 'Not implemented yet.'
 
 
@@ -321,7 +299,6 @@ def cumsum_spec(a, out):
 
 ```python
 def cumsum(a: TensorType["i"]) -> TensorType["i"]:
-    # CHALLENGE
     assert False, 'Not implemented yet.'
 
 
@@ -343,7 +320,6 @@ def diff_spec(a, out):
 
 ```python
 def diff(a: TensorType["i"], i: int) -> TensorType["i"]:
-    # CHALLENGE
     assert False, 'Not implemented yet.'
 
 
@@ -364,7 +340,6 @@ def vstack_spec(a, b, out):
 
 ```python
 def vstack(a: TensorType["i"], b: TensorType["i"]) -> TensorType[2, "i"]:
-    # CHALLENGE
     assert False, 'Not implemented yet.'
 
 
@@ -387,7 +362,6 @@ def roll_spec(a, out):
 
 ```python
 def roll(a: TensorType["i"], i: int) -> TensorType["i"]:
-    # CHALLENGE
     assert False, 'Not implemented yet.'
 
 
@@ -407,7 +381,6 @@ def flip_spec(a, out):
 
 ```python
 def flip(a: TensorType["i"], i: int) -> TensorType["i"]:
-    # CHALLENGE
     assert False, 'Not implemented yet.'
 
 
@@ -433,7 +406,6 @@ def compress_spec(groups, values, out):
 
 ```python
 def compress(groups: TensorType["i", bool], values: TensorType["i"]) -> TensorType["i"]:
-    # CHALLENGE
     assert False, 'Not implemented yet.'
         groups[:, None], eye(groups.shape[0])[cumsum(groups.long()) - 1], 0
     )
@@ -459,7 +431,6 @@ def pad_to_spec(a, out):
 
 
 def pad_to(a: TensorType["i"], i: int, j: int) -> TensorType["j"]:
-    # CHALLENGE
     assert False, 'Not implemented yet.'
 
 
@@ -489,7 +460,6 @@ def sequence_mask_spec(values, length, out):
 def sequence_mask(
     values: TensorType["i", "j"], length: TensorType["i", int]
 ) -> TensorType["i", "j"]:
-    # CHALLENGE
     assert False, 'Not implemented yet.'
 
 
@@ -519,7 +489,6 @@ def bincount_spec(a, out):
 
 ```python
 def bincount(a: TensorType["i"], j: int) -> TensorType["j"]:
-    # CHALLENGE
     assert False, 'Not implemented yet.'
 
 
@@ -550,7 +519,6 @@ def scatter_add_spec(values, link, out):
 def scatter_add(
     values: TensorType["i"], link: TensorType["j"], j: int
 ) -> TensorType["j"]:
-    # CHALLENGE
     assert False, 'Not implemented yet.'
 
 
