@@ -1,7 +1,9 @@
-<!-- #region -->
-# Tensor Puzzles
-- [Sasha Rush](http://rush-nlp.com)
-
+```python
+g# + [markdown]
+# # Tensor Puzzles
+# - [Sasha Rush](http://rush-nlp.com)
+#
+```
 
 When starting with a tensor programming language like PyTorch or
 Numpy it is tempting to rely on the standard library (or more
@@ -10,17 +12,19 @@ But in practice, the tensor language is extremely expressive.
 You can do most things from first principles.
 
 
+
 This is a collection of 15 tensor puzzles. Like chess puzzles these are
 not meant to simulate the complexity of a real program, but to practice
 in a simplified environment. Each puzzle asks you to reimplement one
 function in the NumPy standard.
 
+
 ### Rules
 
-1) Each can be solved in 1 line (<80 columns) of code.
-2) You are allowed  @, *, ==, <=, indexing, and previous puzzle functions.
-3) Additionally you are allowed these two functions:
-<!-- #endregion -->
+
+1. Each can be solved in 1 line (<80 columns) of code.
+2. You are allowed  @, *, ==, <=, indexing, and previous puzzle functions.
+3. Additionally you are allowed these two functions:
 
 ```python
 import torch
@@ -41,8 +45,8 @@ def where(q, a, b):
 
 ### Anti-Rules
 
-1) Nothing else. No `view`, `sum`, `take`, `squeeze`, `tensor`.
-2) No cheating. Stackoverflow is great, but this is about first-principles.
+1. Nothing else. No `view`, `sum`, `take`, `squeeze`, `tensor`.
+2. No cheating. Stackoverflow is great, but this is about first-principles.
 
 
 ### Running puzzles

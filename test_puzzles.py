@@ -1,4 +1,4 @@
-# + [markdown]
+g# + [markdown]
 # # Tensor Puzzles
 # - [Sasha Rush](http://rush-nlp.com)
 #
@@ -17,9 +17,9 @@
 
 # ### Rules
 
-# 1) Each can be solved in 1 line (<80 columns) of code.
-# 2) You are allowed  @, *, ==, <=, indexing, and previous puzzle functions.
-# 3) Additionally you are allowed these two functions:
+# 1. Each can be solved in 1 line (<80 columns) of code.
+# 2. You are allowed  @, *, ==, <=, indexing, and previous puzzle functions.
+# 3. Additionally you are allowed these two functions:
 
 # +
 import torch
@@ -39,8 +39,8 @@ def where(q, a, b):
 
 # ### Anti-Rules
 
-# 1) Nothing else. No `view`, `sum`, `take`, `squeeze`, `tensor`.
-# 2) No cheating. Stackoverflow is great, but this is about first-principles.
+# 1. Nothing else. No `view`, `sum`, `take`, `squeeze`, `tensor`.
+# 2. No cheating. Stackoverflow is great, but this is about first-principles.
 
 
 # ### Running puzzles
