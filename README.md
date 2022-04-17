@@ -1,30 +1,29 @@
-```python
-g# + [markdown]
-# # Tensor Puzzles
-# - [Sasha Rush](http://rush-nlp.com)
-#
-```
+<!-- #region -->
+# Tensor Puzzles
+- [Sasha Rush](http://rush-nlp.com)
 
-When starting with a tensor programming language like PyTorch or
+
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/srush/Tensor-Puzzles/blob/main/Tensor%20Puzzlers.ipynb)
+
+
+
+When learning a tensor programming language like PyTorch or
 Numpy it is tempting to rely on the standard library (or more
-honestly stackoverflow) to find a function for everything.
+honestly StackOverflow) to find a magic function for everything.
 But in practice, the tensor language is extremely expressive.
 You can do most things from first principles.
-
-
 
 This is a collection of 15 tensor puzzles. Like chess puzzles these are
 not meant to simulate the complexity of a real program, but to practice
 in a simplified environment. Each puzzle asks you to reimplement one
 function in the NumPy standard.
 
-
 ### Rules
-
 
 1. Each can be solved in 1 line (<80 columns) of code.
 2. You are allowed  @, *, ==, <=, indexing, and previous puzzle functions.
 3. Additionally you are allowed these two functions:
+<!-- #endregion -->
 
 ```python
 import torch
