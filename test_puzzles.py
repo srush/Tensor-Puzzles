@@ -267,7 +267,7 @@ def diag(a: TT["i", "i"]) -> TT["i"]:
     assert False, 'Not implemented yet.'
 
 
-test_diag = make_test(diag, diag_spec)()
+test_diag = make_test(diag, diag_spec)
 # test_diag()
 
 # + [markdown]
@@ -372,7 +372,7 @@ def vstack(a: TT["i"], b: TT["i"]) -> TT[2, "i"]:
     assert False, 'Not implemented yet.'
 
 
-test_vstack = make_test(vstack, vstack_spec)()
+test_vstack = make_test(vstack, vstack_spec)
 # test_vstack()
 
 # + [markdown]
