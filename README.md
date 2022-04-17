@@ -70,9 +70,13 @@ try to break your code based on the spec.
 To run these you can run with `pytest`. If you are runing in a
 notebook, just uncomment the test for each example.
 
-Here is the code for automatic testing (if you are interested), or you can [skip to problem 1](#Problem 1).
-<!-- #endregion -->
+[Start at problem 1!](#puzzle-1---ones).
 
+
+## Test Harness
+
+Here is the code for automatic testing (if you are interested), or you can 
+<!-- #endregion -->
 
 ```python
 !pip install torchtyping hypothesis pytest
