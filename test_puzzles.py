@@ -1,11 +1,12 @@
 # + [markdown]
 # # Tensor Puzzles
-# - [Sasha Rush](http://rush-nlp.com)
+# - by [Sasha Rush](http://rush-nlp.com) ([@srush_nlp](https://twitter.com/srush_nlp))
 #
 
 # [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/srush/Tensor-Puzzles/blob/main/Tensor%20Puzzlers.ipynb)
-# 
 
+
+# ![]()
 
 # When learning a tensor programming language like PyTorch or
 # Numpy it is tempting to rely on the standard library (or more
@@ -18,7 +19,7 @@
 # in a simplified environment. Each puzzle asks you to reimplement one
 # function in the NumPy standard.
 
-# ### Rules
+# ## Rules
 
 # 1. Each can be solved in 1 line (<80 columns) of code.
 # 2. You are allowed  @, *, ==, <=, indexing, and previous puzzle functions.
@@ -26,6 +27,7 @@
 
 # +
 import torch
+from torchtyping import TensorType as TT
 
 
 def arange(i: int):
@@ -46,20 +48,41 @@ def where(q, a, b):
 # 2. No cheating. Stackoverflow is great, but this is about first-principles.
 
 
-# ### Running puzzles
+# ## Running puzzles
 
 # Each example, corresponds to a unit test which will randomly
-# try to break your code based on the spec.
+# try to break your code based on the spec. The spec is written in
+# standard python with lists.
 
-# To run these you can run with `pytest`. If you are runing in a
-# notebook, just uncomment the test for each example.
+# There are three ways to play.
 
-# [Start at problem 1!](#puzzle-1---ones).
+# 1. Use Colab above.
+# 2. Run the notebook on your machine.
+# 3. Run on your machine  with `pytest`. (First `pip install -r requirements.txt`)
+
+# If you are runing in a notebook, just uncomment the test for each example.
+
+# [Start at Puzzle 1!](#puzzle-1---ones).
 
 
-# ## Test Harness
+# * [Puzzle 1 - ones](#puzzle-1---ones).
+# * [Puzzle 2 - sum](#puzzle-2---sum).
+# * [Puzzle 3 - outer](#puzzle-3---outer).
+# * [Puzzle 4 - diag](#puzzle-4---diag).
+# * [Puzzle 5 - eye](#puzzle-5---eye).
+# * [Puzzle 6 - triu](#puzzle-6---triu).
+# * [Puzzle 7 - cumsum](#puzzle-7---cumsum).
+# * [Puzzle 8 - diff](#puzzle-8---diff).
+# * [Puzzle 9 - vstack](#puzzle-9---vstack).
+# * [Puzzle 10 - roll](#puzzle-10---roll).
+# * [Puzzle 11 - flip](#puzzle-11---flip).
+# * [Puzzle 12 - compress](#puzzle-12---compress).
+# * [Puzzle 13 - pad_to](#puzzle-13---pad_to).
+# * [Puzzle 14 - sequence_mask](#puzzle-14---sequence_mask).
+# * [Puzzle 15 - bincount](#puzzle-15---bincount).
+# * [Puzzle 16 - scatter_add](#puzzle-16---scatter_add).
 
-# Here is the code for automatic testing (if you are interested), or you can 
+# ### Test Harness
 
 # +
 # !pip install torchtyping hypothesis pytest
@@ -71,7 +94,6 @@ from hypothesis.extra.numpy import arrays
 from hypothesis.strategies import integers, tuples, composite, floats
 from hypothesis import given
 import numpy as np
-from torchtyping import TensorType
 
 
 size = integers(min_value=1, max_value=5)
@@ -167,7 +189,7 @@ def ones_spec(out):
 
 
 # +
-def ones(i: int) -> TensorType["i"]:
+def ones(i: int) -> TT["i"]:
     assert False, 'Not implemented yet.'
 
 
@@ -188,7 +210,7 @@ def sum_spec(a, out):
 
 
 # +
-def sum(a: TensorType["i"]) -> TensorType[1]:
+def sum(a: TT["i"]) -> TT[1]:
     assert False, 'Not implemented yet.'
 
 
@@ -209,12 +231,7 @@ def outer_spec(a, b, out):
 
 
 # +
-def outer(
-    a: TensorType[
-        "i",
-    ],
-    b: TensorType["j"],
-) -> TensorType["i", "j"]:
+def outer(a: TT["i"], b: TT["j"]) -> TT["i", "j"]:
     assert False, 'Not implemented yet.'
 
 
@@ -234,7 +251,7 @@ def diag_spec(a, out):
 
 
 # +
-def diag(a: TensorType["i", "i"]) -> TensorType["i"]:
+def diag(a: TT["i", "i"]) -> TT["i"]:
     assert False, 'Not implemented yet.'
 
 
@@ -253,7 +270,7 @@ def eye_spec(out):
 
 
 # +
-def eye(j: int) -> TensorType["j", "j"]:
+def eye(j: int) -> TT["j", "j"]:
     return where(arange(j)[:, None] == arange(j), 1, 0)
 
 
@@ -277,7 +294,7 @@ def triu_spec(out):
 
 
 # +
-def triu(j: int) -> TensorType["j", "j"]:
+def triu(j: int) -> TT["j", "j"]:
     assert False, 'Not implemented yet.'
 
 
@@ -298,7 +315,7 @@ def cumsum_spec(a, out):
 
 
 # +
-def cumsum(a: TensorType["i"]) -> TensorType["i"]:
+def cumsum(a: TT["i"]) -> TT["i"]:
     assert False, 'Not implemented yet.'
 
 
@@ -319,7 +336,7 @@ def diff_spec(a, out):
 
 
 # +
-def diff(a: TensorType["i"], i: int) -> TensorType["i"]:
+def diff(a: TT["i"], i: int) -> TT["i"]:
     assert False, 'Not implemented yet.'
 
 
@@ -327,7 +344,7 @@ test_diff = make_test(diff, diff_spec, add_sizes=["i"])
 # test_diff()
 
 # + [markdown]
-# ## Puzzle 7 - vstack
+# ## Puzzle 9 - vstack
 #
 # Compute [vstack](https://numpy.org/doc/stable/reference/generated/numpy.vstack.html) - the matrix of two vectors
 
@@ -339,7 +356,7 @@ def vstack_spec(a, b, out):
 
 
 # +
-def vstack(a: TensorType["i"], b: TensorType["i"]) -> TensorType[2, "i"]:
+def vstack(a: TT["i"], b: TT["i"]) -> TT[2, "i"]:
     assert False, 'Not implemented yet.'
 
 
@@ -347,7 +364,7 @@ test_vstack = make_test(vstack, vstack_spec)()
 # test_vstack()
 
 # + [markdown]
-# ## Puzzle 8 - roll
+# ## Puzzle 10 - roll
 #
 # Compute [roll](https://numpy.org/doc/stable/reference/generated/numpy.roll.html) - the vector shifted 1 circular position.
 
@@ -361,7 +378,7 @@ def roll_spec(a, out):
 
 
 # +
-def roll(a: TensorType["i"], i: int) -> TensorType["i"]:
+def roll(a: TT["i"], i: int) -> TT["i"]:
     assert False, 'Not implemented yet.'
 
 
@@ -369,7 +386,7 @@ test_roll = make_test(roll, roll_spec, add_sizes=["i"])
 # test_roll()
 
 # + [markdown]
-# ## Puzzle 9 - flip
+# ## Puzzle 11 - flip
 #
 # Compute [flip](https://numpy.org/doc/stable/reference/generated/numpy.flip.html) - the reversed vector
 
@@ -380,7 +397,7 @@ def flip_spec(a, out):
 
 
 # +
-def flip(a: TensorType["i"], i: int) -> TensorType["i"]:
+def flip(a: TT["i"], i: int) -> TT["i"]:
     assert False, 'Not implemented yet.'
 
 
@@ -388,7 +405,7 @@ test_flip = make_test(flip, flip_spec, add_sizes=["i"])
 # test_flip()
 
 # + [markdown]
-# ## Puzzle 10 - compress
+# ## Puzzle 12 - compress
 #
 #
 # Compute [compress](https://numpy.org/doc/stable/reference/generated/numpy.flip.html) - keep only masked entries (left-aligned).
@@ -403,10 +420,8 @@ def compress_spec(groups, values, out):
 
 
 # +
-def compress(groups: TensorType["i", bool], values: TensorType["i"]) -> TensorType["i"]:
+def compress(groups: TT["i", bool], values: TT["i"]) -> TT["i"]:
     assert False, 'Not implemented yet.'
-        groups[:, None], eye(groups.shape[0])[cumsum(groups.long()) - 1], 0
-    )
 
 
 test_compress = make_test(compress, compress_spec)
@@ -414,7 +429,7 @@ test_compress = make_test(compress, compress_spec)
 
 
 # + [markdown]
-# ## Puzzle 12 - pad_to
+# ## Puzzle 13 - pad_to
 #
 #
 # Compute pad_to - eliminate or add 0s to change size of vector.
@@ -426,7 +441,7 @@ def pad_to_spec(a, out):
         out[i] = a[i]
 
 
-def pad_to(a: TensorType["i"], i: int, j: int) -> TensorType["j"]:
+def pad_to(a: TT["i"], i: int, j: int) -> TT["j"]:
     assert False, 'Not implemented yet.'
 
 
@@ -435,7 +450,7 @@ test_pad_to = make_test(pad_to, pad_to_spec, add_sizes=["i", "j"])
 
 
 # + [markdown]
-# ## Puzzle 13 - sequence_mask
+# ## Puzzle 14 - sequence_mask
 #
 #
 # Compute [sequence_mask](https://www.tensorflow.org/api_docs/python/tf/sequence_mask) - pad out to length per batch.
@@ -451,9 +466,7 @@ def sequence_mask_spec(values, length, out):
 
 
 # +
-def sequence_mask(
-    values: TensorType["i", "j"], length: TensorType["i", int]
-) -> TensorType["i", "j"]:
+def sequence_mask(values: TT["i", "j"], length: TT["i", int]) -> TT["i", "j"]:
     assert False, 'Not implemented yet.'
 
 
@@ -470,7 +483,7 @@ test_sequence = make_test(
 
 
 # + [markdown]
-# ## Puzzle 14: bincount
+# ## Puzzle 15: bincount
 #
 # Compute [bincount](https://numpy.org/doc/stable/reference/generated/numpy.bincount.html) - count number of times an entry was seen.
 
@@ -482,7 +495,7 @@ def bincount_spec(a, out):
 
 
 # +
-def bincount(a: TensorType["i"], j: int) -> TensorType["j"]:
+def bincount(a: TT["i"], j: int) -> TT["j"]:
     assert False, 'Not implemented yet.'
 
 
@@ -498,7 +511,7 @@ test_bincount = make_test(
 
 
 # + [markdown]
-# ## Puzzle 15: scatter_add
+# ## Puzzle 16: scatter_add
 #
 # Compute `scatter_add` - add togeter values that scatter together.
 
@@ -510,9 +523,7 @@ def scatter_add_spec(values, link, out):
 
 
 # +
-def scatter_add(
-    values: TensorType["i"], link: TensorType["j"], j: int
-) -> TensorType["j"]:
+def scatter_add(values: TT["i"], link: TT["j"], j: int) -> TT["j"]:
     assert False, 'Not implemented yet.'
 
 
