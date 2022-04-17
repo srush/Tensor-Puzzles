@@ -283,7 +283,7 @@ def eye_spec(out):
 
 # +
 def eye(j: int) -> TT["j", "j"]:
-    return where(arange(j)[:, None] == arange(j), 1, 0)
+    assert False, 'Not implemented yet.'
 
 
 # +
