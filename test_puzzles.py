@@ -1,45 +1,41 @@
----
-jupyter:
-  jupytext:
-    main_language: python
-    text_representation:
-      extension: .md
-      format_name: markdown
-      format_version: '1.3'
-      jupytext_version: 1.13.8
-  kernelspec:
-    display_name: Python 3
-    name: python3
----
-
-```python
-
-```
-<!-- #region -->
-# Tensor Puzzles
-- [Sasha Rush](http://rush-nlp.com)
+# ---
+# jupyter:
+#   jupytext:
+#     text_representation:
+#       extension: .py
+#       format_name: light
+#       format_version: '1.5'
+#       jupytext_version: 1.13.8
+#   kernelspec:
+#     display_name: Python 3
+#     name: python3
+# ---
 
 
-When starting with a tensor programming language like PyTorch or
-Numpy it is tempting to rely on the standard library (or more
-honestly stackoverflow) to find a function for everything.
-But in practice, the tensor language is extremely expressive.
-You can do most things from first principles.
+# + [markdown]
+# # Tensor Puzzles
+# - [Sasha Rush](http://rush-nlp.com)
+#
+
+# When starting with a tensor programming language like PyTorch or
+# Numpy it is tempting to rely on the standard library (or more
+# honestly stackoverflow) to find a function for everything.
+# But in practice, the tensor language is extremely expressive.
+# You can do most things from first principles.
 
 
-This is a collection of 15 tensor puzzles. Like chess puzzles these are
-not meant to simulate the complexity of a real program, but to practice
-in a simplified environment. Each puzzle asks you to reimplement one
-function in the NumPy standard.
+# This is a collection of 15 tensor puzzles. Like chess puzzles these are
+# not meant to simulate the complexity of a real program, but to practice
+# in a simplified environment. Each puzzle asks you to reimplement one
+# function in the NumPy standard.
 
-### Rules
+# ### Rules
 
-1) Each can be solved in 1 line (<80 columns) of code.
-2) You are allowed  @, *, ==, <=, indexing, and previous puzzle functions.
-3) Additionally you are allowed these two functions:
-<!-- #endregion -->
+# 1) Each can be solved in 1 line (<80 columns) of code.
+# 2) You are allowed  @, *, ==, <=, indexing, and previous puzzle functions.
+# 3) Additionally you are allowed these two functions:
 
-```python
+# +
 import torch
 
 
@@ -51,34 +47,31 @@ def arange(i: int):
 def where(q, a, b):
     "Think if-statement"
     return (q * a) + (~q) * b
-```
 
 
-<!-- #region -->
+# + [markdown]
 
-### Anti-Rules
+# ### Anti-Rules
 
-1) Nothing else. No `view`, `sum`, `take`, `squeeze`, `tensor`.
-2) No cheating. Stackoverflow is great, but this is about first-principles.
-
-
-### Running puzzles
-
-Each example, corresponds to a unit test which will randomly
-try to break your code based on the spec.
-
-To run these you can run with `pytest`. If you are runing in a
-notebook, just uncomment the test for each example.
-
-Here is the code for automatic testing (if you are interested), or you can [skip to problem 1](#Problem 1).
-<!-- #endregion -->
+# 1) Nothing else. No `view`, `sum`, `take`, `squeeze`, `tensor`.
+# 2) No cheating. Stackoverflow is great, but this is about first-principles.
 
 
-```python
-!pip install torchtyping hypothesis pytest
-```
+# ### Running puzzles
 
-```python
+# Each example, corresponds to a unit test which will randomly
+# try to break your code based on the spec.
+
+# To run these you can run with `pytest`. If you are runing in a
+# notebook, just uncomment the test for each example.
+
+# Here is the code for automatic testing (if you are interested), or you can [skip to problem 1](#Problem 1).
+
+
+# +
+# !pip install torchtyping hypothesis pytest
+
+# +
 
 import typing
 from hypothesis.extra.numpy import arrays
@@ -167,19 +160,20 @@ def make_test(problem, problem_spec, add_sizes=[], constraint=lambda d: d):
         ), "Two tensors are not equal\n Spec: \n\t%s \n\t%s" % (out, out2)
 
     return test_problem
-```
 
-## Puzzle 1 - ones
 
-Compute [ones](https://numpy.org/doc/stable/reference/generated/numpy.ones.html) - the vector of all ones.
+# + [markdown]
+# ## Puzzle 1 - ones
+#
+# Compute [ones](https://numpy.org/doc/stable/reference/generated/numpy.ones.html) - the vector of all ones.
 
-```python
+# +
 def ones_spec(out):
     for i in range(len(out)):
         out[i] = 1
-```
 
-```python
+
+# +
 def ones(i: int) -> TensorType["i"]:
     # CHALLENGE
     assert False, 'Not implemented yet.'
@@ -187,21 +181,21 @@ def ones(i: int) -> TensorType["i"]:
 
 test_ones = make_test(ones, ones_spec, add_sizes=["i"])
 # test_ones()
-```
 
 
-## Puzzle 2 - sum
+# + [markdown]
+# ## Puzzle 2 - sum
+#
+# Compute [sum](https://numpy.org/doc/stable/reference/generated/numpy.sum.html) - the sum of a vector.
 
-Compute [sum](https://numpy.org/doc/stable/reference/generated/numpy.sum.html) - the sum of a vector.
-
-```python
+# +
 def sum_spec(a, out):
     out[0] = 0
     for i in range(len(a)):
         out[0] += a[i]
-```
 
-```python
+
+# +
 def sum(a: TensorType["i"]) -> TensorType[1]:
     # CHALLENGE
     assert False, 'Not implemented yet.'
@@ -209,21 +203,21 @@ def sum(a: TensorType["i"]) -> TensorType[1]:
 
 test_sum = make_test(sum, sum_spec)
 # test_sum()
-```
 
 
-## Puzzle 3 - outer
+# + [markdown]
+# ## Puzzle 3 - outer
+#
+# Compute [outer](https://numpy.org/doc/stable/reference/generated/numpy.outer.html) - the outer product of two vectors.
 
-Compute [outer](https://numpy.org/doc/stable/reference/generated/numpy.outer.html) - the outer product of two vectors.
-
-```python
+# +
 def outer_spec(a, b, out):
     for i in range(len(out)):
         for j in range(len(out[0])):
             out[i][j] = a[i] * b[j]
-```
 
-```python
+
+# +
 def outer(
     a: TensorType[
         "i",
@@ -236,20 +230,20 @@ def outer(
 
 test_outer = make_test(outer, outer_spec)
 # test_outer()
-```
 
 
-## Puzzle 4 - diag
+# + [markdown]
+# ## Puzzle 4 - diag
+#
+# Compute [diag](https://numpy.org/doc/stable/reference/generated/numpy.diag.html) - the diagonal vector of a square matrix.
 
-Compute [diag](https://numpy.org/doc/stable/reference/generated/numpy.diag.html) - the diagonal vector of a square matrix.
-
-```python
+# +
 def diag_spec(a, out):
     for i in range(len(a)):
         out[i] = a[i][i]
-```
 
-```python
+
+# +
 def diag(a: TensorType["i", "i"]) -> TensorType["i"]:
     # CHALLENGE
     assert False, 'Not implemented yet.'
@@ -257,33 +251,33 @@ def diag(a: TensorType["i", "i"]) -> TensorType["i"]:
 
 test_diag = make_test(diag, diag_spec)()
 # test_diag()
-```
 
-## Puzzle 5 - eye
+# + [markdown]
+# ## Puzzle 5 - eye
+#
+# Compute [eye](https://numpy.org/doc/stable/reference/generated/numpy.eye.html) - the identity matrix.
 
-Compute [eye](https://numpy.org/doc/stable/reference/generated/numpy.eye.html) - the identity matrix.
-
-```python
+# +
 def eye_spec(out):
     for i in range(len(out)):
         out[i][i] = 1
-```
 
-```python
+
+# +
 def eye(j: int) -> TensorType["j", "j"]:
     return where(arange(j)[:, None] == arange(j), 1, 0)
-```
 
-```python
+
+# +
 test_eye = make_test(eye, eye_spec, add_sizes=["j"])
 # test_eye()
-```
 
-## Puzzle 6 - triu
+# + [markdown]
+# ## Puzzle 6 - triu
+#
+# Compute [triu](https://numpy.org/doc/stable/reference/generated/numpy.triu.html) - the upper triangular matrix.
 
-Compute [triu](https://numpy.org/doc/stable/reference/generated/numpy.triu.html) - the upper triangular matrix.
-
-```python
+# +
 def triu_spec(out):
     for i in range(len(out)):
         for j in range(len(out)):
@@ -291,9 +285,9 @@ def triu_spec(out):
                 out[i][j] = 1
             else:
                 out[i][j] = 0
-```
 
-```python
+
+# +
 def triu(j: int) -> TensorType["j", "j"]:
     # CHALLENGE
     assert False, 'Not implemented yet.'
@@ -301,21 +295,21 @@ def triu(j: int) -> TensorType["j", "j"]:
 
 test_triu = make_test(triu, triu_spec, add_sizes=["j"])
 # test_triu()
-```
 
-## Puzzle 7 - cumsum
+# + [markdown]
+# ## Puzzle 7 - cumsum
+#
+# Compute [cumsum](https://numpy.org/doc/stable/reference/generated/numpy.cumsum.html) - the cumulative sum.
 
-Compute [cumsum](https://numpy.org/doc/stable/reference/generated/numpy.cumsum.html) - the cumulative sum.
-
-```python
+# +
 def cumsum_spec(a, out):
     total = 0
     for i in range(len(out)):
         out[i] = total + a[i]
         total += a[i]
-```
 
-```python
+
+# +
 def cumsum(a: TensorType["i"]) -> TensorType["i"]:
     # CHALLENGE
     assert False, 'Not implemented yet.'
@@ -323,21 +317,21 @@ def cumsum(a: TensorType["i"]) -> TensorType["i"]:
 
 test_cumsum = make_test(cumsum, cumsum_spec)
 # test_cumsum()
-```
 
 
-## Puzzle 8 - diff
+# + [markdown]
+# ## Puzzle 8 - diff
+#
+# Compute [diff](https://numpy.org/doc/stable/reference/generated/numpy.diff.html) - the running difference.
 
-Compute [diff](https://numpy.org/doc/stable/reference/generated/numpy.diff.html) - the running difference.
-
-```python
+# +
 def diff_spec(a, out):
     out[0] = a[0]
     for i in range(1, len(out)):
         out[i] = a[i] - a[i - 1]
-```
 
-```python
+
+# +
 def diff(a: TensorType["i"], i: int) -> TensorType["i"]:
     # CHALLENGE
     assert False, 'Not implemented yet.'
@@ -345,20 +339,20 @@ def diff(a: TensorType["i"], i: int) -> TensorType["i"]:
 
 test_diff = make_test(diff, diff_spec, add_sizes=["i"])
 # test_diff()
-```
 
-## Puzzle 7 - vstack
+# + [markdown]
+# ## Puzzle 7 - vstack
+#
+# Compute [vstack](https://numpy.org/doc/stable/reference/generated/numpy.vstack.html) - the matrix of two vectors
 
-Compute [vstack](https://numpy.org/doc/stable/reference/generated/numpy.vstack.html) - the matrix of two vectors
-
-```python
+# +
 def vstack_spec(a, b, out):
     for i in range(len(out[0])):
         out[0][i] = a[i]
         out[1][i] = b[i]
-```
 
-```python
+
+# +
 def vstack(a: TensorType["i"], b: TensorType["i"]) -> TensorType[2, "i"]:
     # CHALLENGE
     assert False, 'Not implemented yet.'
@@ -366,22 +360,22 @@ def vstack(a: TensorType["i"], b: TensorType["i"]) -> TensorType[2, "i"]:
 
 test_vstack = make_test(vstack, vstack_spec)()
 # test_vstack()
-```
 
-## Puzzle 8 - roll
+# + [markdown]
+# ## Puzzle 8 - roll
+#
+# Compute [roll](https://numpy.org/doc/stable/reference/generated/numpy.roll.html) - the vector shifted 1 circular position.
 
-Compute [roll](https://numpy.org/doc/stable/reference/generated/numpy.roll.html) - the vector shifted 1 circular position.
-
-```python
+# +
 def roll_spec(a, out):
     for i in range(len(out)):
         if i + 1 < len(out):
             out[i] = a[i + 1]
         else:
             out[i] = a[i + 1 - len(out)]
-```
 
-```python
+
+# +
 def roll(a: TensorType["i"], i: int) -> TensorType["i"]:
     # CHALLENGE
     assert False, 'Not implemented yet.'
@@ -389,19 +383,19 @@ def roll(a: TensorType["i"], i: int) -> TensorType["i"]:
 
 test_roll = make_test(roll, roll_spec, add_sizes=["i"])
 # test_roll()
-```
 
-## Puzzle 9 - flip
+# + [markdown]
+# ## Puzzle 9 - flip
+#
+# Compute [flip](https://numpy.org/doc/stable/reference/generated/numpy.flip.html) - the reversed vector
 
-Compute [flip](https://numpy.org/doc/stable/reference/generated/numpy.flip.html) - the reversed vector
-
-```python
+# +
 def flip_spec(a, out):
     for i in range(len(out)):
         out[i] = a[len(out) - i - 1]
-```
 
-```python
+
+# +
 def flip(a: TensorType["i"], i: int) -> TensorType["i"]:
     # CHALLENGE
     assert False, 'Not implemented yet.'
@@ -409,25 +403,23 @@ def flip(a: TensorType["i"], i: int) -> TensorType["i"]:
 
 test_flip = make_test(flip, flip_spec, add_sizes=["i"])
 # test_flip()
-```
 
-<!-- #region -->
-## Puzzle 10 - compress
+# + [markdown]
+# ## Puzzle 10 - compress
+#
+#
+# Compute [compress](https://numpy.org/doc/stable/reference/generated/numpy.flip.html) - keep only masked entries (left-aligned).
 
-
-Compute [compress](https://numpy.org/doc/stable/reference/generated/numpy.flip.html) - keep only masked entries (left-aligned).
-<!-- #endregion -->
-
-```python
+# +
 def compress_spec(groups, values, out):
     j = 0
     for i in range(len(groups)):
         if groups[i]:
             out[j] = values[i]
             j += 1
-```
 
-```python
+
+# +
 def compress(groups: TensorType["i", bool], values: TensorType["i"]) -> TensorType["i"]:
     # CHALLENGE
     assert False, 'Not implemented yet.'
@@ -437,18 +429,16 @@ def compress(groups: TensorType["i", bool], values: TensorType["i"]) -> TensorTy
 
 test_compress = make_test(compress, compress_spec)
 # test_compress()
-```
 
 
-<!-- #region -->
-## Puzzle 12 - pad_to
+# + [markdown]
+# ## Puzzle 12 - pad_to
+#
+#
+# Compute pad_to - eliminate or add 0s to change size of vector.
 
 
-Compute pad_to - eliminate or add 0s to change size of vector.
-<!-- #endregion -->
-
-
-```python id="-DsZHgOTroVN"
+# + id="-DsZHgOTroVN"
 def pad_to_spec(a, out):
     for i in range(min(len(out), len(a))):
         out[i] = a[i]
@@ -461,17 +451,15 @@ def pad_to(a: TensorType["i"], i: int, j: int) -> TensorType["j"]:
 
 test_pad_to = make_test(pad_to, pad_to_spec, add_sizes=["i", "j"])
 # test_pad_to()
-```
 
 
-<!-- #region -->
-## Puzzle 13 - sequence_mask
+# + [markdown]
+# ## Puzzle 13 - sequence_mask
+#
+#
+# Compute [sequence_mask](https://www.tensorflow.org/api_docs/python/tf/sequence_mask) - pad out to length per batch.
 
-
-Compute [sequence_mask](https://www.tensorflow.org/api_docs/python/tf/sequence_mask) - pad out to length per batch.
-<!-- #endregion -->
-
-```python
+# +
 def sequence_mask_spec(values, length, out):
     for i in range(len(out)):
         for j in range(len(out[0])):
@@ -479,9 +467,9 @@ def sequence_mask_spec(values, length, out):
                 out[i][j] = values[i][j]
             else:
                 out[i][j] = 0
-```
 
-```python
+
+# +
 def sequence_mask(
     values: TensorType["i", "j"], length: TensorType["i", int]
 ) -> TensorType["i", "j"]:
@@ -499,21 +487,21 @@ test_sequence = make_test(
 )
 
 # test_sequence()
-```
 
 
-## Puzzle 14: bincount
+# + [markdown]
+# ## Puzzle 14: bincount
+#
+# Compute [bincount](https://numpy.org/doc/stable/reference/generated/numpy.bincount.html) - count number of times an entry was seen.
 
-Compute [bincount](https://numpy.org/doc/stable/reference/generated/numpy.bincount.html) - count number of times an entry was seen.
 
-
-```python
+# +
 def bincount_spec(a, out):
     for i in range(len(a)):
         out[a[i]] += 1
-```
 
-```python
+
+# +
 def bincount(a: TensorType["i"], j: int) -> TensorType["j"]:
     # CHALLENGE
     assert False, 'Not implemented yet.'
@@ -528,21 +516,21 @@ test_bincount = make_test(
     bincount, bincount_spec, add_sizes=["j"], constraint=constraint_set_max
 )
 # test_bincount()
-```
 
 
-## Puzzle 15: scatter_add
+# + [markdown]
+# ## Puzzle 15: scatter_add
+#
+# Compute `scatter_add` - add togeter values that scatter together.
 
-Compute `scatter_add` - add togeter values that scatter together.
 
-
-```python
+# +
 def scatter_add_spec(values, link, out):
     for j in range(len(link)):
         out[j] += values[link[j]]
-```
 
-```python
+
+# +
 def scatter_add(
     values: TensorType["i"], link: TensorType["j"], j: int
 ) -> TensorType["j"]:
@@ -559,4 +547,3 @@ test_scatter_add = make_test(
     scatter_add, scatter_add_spec, add_sizes=["j"], constraint=constraint_set_max
 )
 # test_scatter_add()
-```
