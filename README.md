@@ -43,7 +43,7 @@ function in the NumPy standard library without magic.
 ## Rules
 
 1. Each can be solved in 1 line (<80 columns) of code.
-2. You are allowed  @, *, ==, <=, `shape`, fancy indexing (e.g. a[:j], a[:, None], a[arange(10)]), and previous puzzle functions.
+2. You are allowed  @, *, ==, <=, `shape`, fancy indexing (e.g. `a[:j], a[:, None], a[arange(10)]`), and previous puzzle functions.
 3. Additionally you are allowed these two functions:
 <!-- #endregion -->
 
