@@ -37,7 +37,7 @@ function in the NumPy standard library without magic.
 * [Puzzle 13 - pad_to](#puzzle-13---pad_to).
 * [Puzzle 14 - sequence_mask](#puzzle-14---sequence_mask).
 * [Puzzle 15 - bincount](#puzzle-15---bincount).
-* [Puzzle 16 - gather_add](#puzzle-16---gather_add).
+* [Puzzle 16 - scatter_add](#puzzle-16---scatter_add).
 
 
 ## Rules
@@ -585,29 +585,29 @@ test_bincount = make_test(
 ```
 
 
-## Puzzle 16 - gather_add
+## Puzzle 16 - scatter_add
 
-Compute `gather_add` - add together values that index to the same location.
+Compute `scatter_add` - add together values that link to the same location.
 
 
 ```python
-def gather_add_spec(values, link, out):
-    for j in range(len(link)):
-        out[j] += values[link[j]]
+def scatter_add_spec(values, link, out):
+    for j in range(len(values)):
+        out[link[j]] += values[j]
 ```
 
 ```python
-def gather_add(values: TT["i"], link: TT["j"], j: int) -> TT["j"]:
+def scatter_add(values: TT["i"], link: TT["i"], j: int) -> TT["j"]:
     assert False, 'Not implemented yet.'
 
 
 def constraint_set_max(d):
-    d["link"] = d["link"] % d["values"].shape[0]
+    d["link"] = d["link"] % d["return"].shape[0]
     return d
 
 
-test_gather_add = make_test(
-    gather_add, gather_add_spec, add_sizes=["j"], constraint=constraint_set_max
+test_scatter_add = make_test(
+    scatter_add, scatter_add_spec, add_sizes=["j"], constraint=constraint_set_max
 )
-# run_test(test_gather_add)
+# run_test(test_scatter_add)
 ```
