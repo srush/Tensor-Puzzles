@@ -475,20 +475,20 @@ test_flip = make_test(flip, flip_spec, add_sizes=["i"])
 # Compute [compress](https://numpy.org/doc/stable/reference/generated/numpy.flip.html) - keep only masked entries (left-aligned).
 
 # +
-def compress_spec(groups, values, out):
+def compress_spec(g, v, out):
     j = 0
-    for i in range(len(groups)):
-        if groups[i]:
-            out[j] = values[i]
+    for i in range(len(g)):
+        if g[i]:
+            out[j] = v[i]
             j += 1
 
 
 # +
-def compress(groups: TT["i", bool], values: TT["i"]) -> TT["i"]:
+def compress(g: TT["i", bool], v: TT["i"], i:int) -> TT["i"]:
     assert False, 'Not implemented yet.'
 
 
-test_compress = make_test(compress, compress_spec)
+test_compress = make_test(compress, compress_spec, add_sizes=["i"])
 # run_test(test_compress)
 
 
