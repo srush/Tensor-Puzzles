@@ -587,7 +587,7 @@ test_bincount = make_test(
 
 ## Puzzle 16 - scatter_add
 
-Compute `scatter_add` - add together values that link to the same location.
+Compute [scatter_add](https://pytorch-scatter.readthedocs.io/en/1.3.0/functions/add.html) - add together values that link to the same location.
 
 
 ```python
