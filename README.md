@@ -545,7 +545,7 @@ def sequence_mask(values: TT["i", "j"], length: TT["i", int]) -> TT["i", "j"]:
 
 
 def constraint_set_length(d):
-    d["length"] = d["length"] % d["values"].shape[0]
+    d["length"] = d["length"] % d["values"].shape[1]
     return d
 
 
