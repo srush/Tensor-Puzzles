@@ -37,7 +37,7 @@
 # * [Puzzle 13 - pad_to](#puzzle-13---pad_to).
 # * [Puzzle 14 - sequence_mask](#puzzle-14---sequence_mask).
 # * [Puzzle 15 - bincount](#puzzle-15---bincount).
-# * [Puzzle 16 - scatter_add](#puzzle-16---scatter_add).
+# * [Puzzle 16 - gather_add](#puzzle-16---gather_add).
 
 
 # ## Rules
@@ -472,7 +472,7 @@ test_flip = make_test(flip, flip_spec, add_sizes=["i"])
 # ## Puzzle 12 - compress
 #
 #
-# Compute [compress](https://numpy.org/doc/stable/reference/generated/numpy.flip.html) - keep only masked entries (left-aligned).
+# Compute [compress](https://numpy.org/doc/stable/reference/generated/numpy.compress.html) - keep only masked entries (left-aligned).
 
 # +
 def compress_spec(g, v, out):
@@ -575,19 +575,19 @@ test_bincount = make_test(
 
 
 # + [markdown]
-# ## Puzzle 16 - scatter_add
+# ## Puzzle 16 - gather_add
 #
-# Compute `scatter_add` - add togeter values that scatter together.
+# Compute `gather_add` - add together values that index to the same location.
 
 
 # +
-def scatter_add_spec(values, link, out):
+def gather_add_spec(values, link, out):
     for j in range(len(link)):
         out[j] += values[link[j]]
 
 
 # +
-def scatter_add(values: TT["i"], link: TT["j"], j: int) -> TT["j"]:
+def gather_add(values: TT["i"], link: TT["j"], j: int) -> TT["j"]:
     assert False, 'Not implemented yet.'
 
 
@@ -596,7 +596,7 @@ def constraint_set_max(d):
     return d
 
 
-test_scatter_add = make_test(
-    scatter_add, scatter_add_spec, add_sizes=["j"], constraint=constraint_set_max
+test_gather_add = make_test(
+    gather_add, gather_add_spec, add_sizes=["j"], constraint=constraint_set_max
 )
-# run_test(test_scatter_add)
+# run_test(test_gather_add)
