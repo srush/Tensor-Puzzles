@@ -604,3 +604,22 @@ test_scatter_add = make_test(
     scatter_add, scatter_add_spec, add_sizes=["j"], constraint=constraint_set_max
 )
 # run_test(test_scatter_add)
+
+
+# + [markdown]
+#
+# Conciseness counter.
+
+# +
+
+import inspect
+fns = (ones, sum, outer, diag, eye, triu, cumsum, diff, vstack, roll, flip,
+       compress, pad_to, sequence_mask, bincount, scatter_add)
+
+for fn in fns:
+    lines = [l for l in inspect.getsource(fn).split("\n") if not l.strip().startswith("#")]
+    
+    if len(lines) > 3:
+        print(fn.__name__, len(lines[2]), "(more than 1 line)")
+    else:
+        print(fn.__name__, len(lines[1]))
