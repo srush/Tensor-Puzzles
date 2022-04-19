@@ -43,7 +43,7 @@
 # ## Rules
 
 # 1. Each can be solved in 1 line (<80 columns) of code.
-# 2. You are allowed  @, *, ==, <=, `shape`, fancy indexing (e.g. `a[:j], a[:, None], a[arange(10)]`), and previous puzzle functions.
+# 2. You are allowed @, arithmetic, comparison, `shape`, `.T`, any indexing (e.g. `a[:j], a[:, None], a[arange(10)]`), and previous puzzle functions.
 # 3. Additionally you are allowed these two functions:
 
 # +
@@ -99,14 +99,15 @@ def where(q, a, b):
 
 # +
 
-import typing
+
 from torchtyping import TensorType as TT
 from hypothesis.extra.numpy import arrays
 from hypothesis.strategies import integers, tuples, composite, floats
 from hypothesis import given
 import numpy as np
 import random
-
+import sys
+import typing
 
 size = integers(min_value=1, max_value=5)
 
@@ -130,7 +131,10 @@ torch_to_numpy_dtype_dict = {v: k for k, v in numpy_to_torch_dtype_dict.items()}
 def spec(draw, x):
 
     names = set()
-    gth = typing.get_type_hints(x)
+    if sys.version_info >= (3, 9):
+        gth = typing.get_type_hints(x, include_extras=True)
+    else:
+        gth = typing.get_type_hints(x)
     for k in gth:
         if not hasattr(gth[k], "__metadata__"):
             continue
