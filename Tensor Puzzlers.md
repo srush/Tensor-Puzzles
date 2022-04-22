@@ -49,6 +49,7 @@ function in the NumPy standard library without magic.
 
 
 ```python
+# - 
 gen_mode = False
 save_mode = False
 import notebookjs
@@ -445,8 +446,7 @@ def ones_spec(out):
         out[i] = 1
         
 def ones(i: int) -> TT["i"]:
-    return tensor([1 for _ in range(i)])
-    #assert False, 'Not implemented yet.'
+    assert False, 'Not implemented yet.'
 
 test_ones = make_test("one", ones, ones_spec, add_sizes=["i"])
 ```
@@ -459,22 +459,8 @@ test_ones = make_test("one", ones, ones_spec, add_sizes=["i"])
 
 
 ```python
-run_test(test_ones)
+# run_test(test_ones)
 ```
-
-    Correct!
-
-
-
-
-
-
-<video alt="test" controls autoplay=1>
-    <source src="https://openpuppies.com/mp4/HlaTE8H.mp4"  type="video/mp4">
-</video>
-
-
-
 
 ## Puzzle 2 - sum
 
