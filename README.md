@@ -112,8 +112,7 @@ import numpy as np
 import random
 import sys
 import typing
-
-size = integers(min_value=1, max_value=5)
+import matplotlib.pyplot as plt
 
 tensor = torch.tensor
 
@@ -132,23 +131,29 @@ torch_to_numpy_dtype_dict = {v: k for k, v in numpy_to_torch_dtype_dict.items()}
 
 
 @composite
-def spec(draw, x):
-
-    names = set()
+def spec(draw, x, min_size=1):
+    # Get the type hints.
     if sys.version_info >= (3, 9):
         gth = typing.get_type_hints(x, include_extras=True)
     else:
         gth = typing.get_type_hints(x)
+
+    # Collect all the dimension names.
+    names = set()
     for k in gth:
         if not hasattr(gth[k], "__metadata__"):
             continue
         dims = gth[k].__metadata__[0]["details"][0].dims
         names.update([d.name for d in dims if isinstance(d.name, str)])
     names = list(names)
+
+    # draw sizes for each dim.
+    size = integers(min_value=min_size, max_value=5)
     arr = draw(tuples(*[size for _ in range(len(names))]))
     sizes = dict(zip(names, arr))
-    ret = {}
 
+    # Create tensors for each size.
+    ret = {}
     for k in gth:
         if not hasattr(gth[k], "__metadata__"):
             continue
@@ -176,7 +181,14 @@ def spec(draw, x):
     return ret, sizes
 
 
-def make_test(problem, problem_spec, add_sizes=[], constraint=lambda d: d):
+def make_test(name, problem, problem_spec, add_sizes=[], constraint=lambda d: d):
+    example, _ = spec(problem, 3).example()
+    example = constraint(example)
+    out = example["return"].tolist()
+    del example["return"]
+    problem_spec(*example.values(), out)
+    example["return"] = tensor(out)
+    
     @given(spec(problem))
     def test_problem(d):
         d, sizes = d
@@ -194,7 +206,28 @@ def make_test(problem, problem_spec, add_sizes=[], constraint=lambda d: d):
             out, out2
         ), "Two tensors are not equal\n Spec: \n\t%s \n\t%s" % (out, out2)
 
+    draw_example(name, example)
     return test_problem
+
+def draw_example(name, examples):
+    fig, axs = plt.subplots(ncols=len(example))
+    fig.suptitle(name)
+    if len(example) == 1:
+        axs = [axs]
+    def show(k, m, ax):
+        if len(m.shape) == 1:
+            m = m[None]
+        ax.imshow(m)
+        ax.set_title(k)
+        ax.set_xticks(np.arange((m.shape[1])))
+        ax.set_yticks(np.arange((m.shape[0])))
+
+        # Rotate the tick labels and set their alignment.
+        plt.setp(ax.get_xticklabels(), rotation=45, ha="right",
+                 rotation_mode="anchor")
+    for i, k in enumerate(example):
+        show(k, example[k], axs[i])
+    fig.savefig("figs/" + name + ".png")
 
 def run_test(fn):
     fn()
@@ -263,9 +296,14 @@ def ones_spec(out):
 ```python
 def ones(i: int) -> TT["i"]:
     assert False, 'Not implemented yet.'
+```
+
+```python
+test_ones = make_test("one", ones, ones_spec, add_sizes=["i"])
+```
 
 
-test_ones = make_test(ones, ones_spec, add_sizes=["i"])
+```python
 # run_test(test_ones)
 ```
 
@@ -286,7 +324,7 @@ def sum(a: TT["i"]) -> TT[1]:
     assert False, 'Not implemented yet.'
 
 
-test_sum = make_test(sum, sum_spec)
+test_sum = make_test("sum", sum, sum_spec)
 # run_test(test_sum)
 ```
 
@@ -305,12 +343,16 @@ def outer_spec(a, b, out):
 ```python
 def outer(a: TT["i"], b: TT["j"]) -> TT["i", "j"]:
     assert False, 'Not implemented yet.'
-
-
-test_outer = make_test(outer, outer_spec)
-# run_test(test_outer)
 ```
 
+```python
+test_outer = make_test("outer", outer, outer_spec)
+```
+
+```python
+# run_test(test_outer)
+exit()
+```
 
 ## Puzzle 4 - diag
 
