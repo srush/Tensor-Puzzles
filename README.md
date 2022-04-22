@@ -114,25 +114,9 @@ Each example, corresponds to a unit test which will randomly
 try to break your code based on the spec. The spec is written in
 standard python with lists.
 
-To play, fork this repo,
-
-```bash
-pip install -r requirements.txt
-pytest test_puzzles.py
-```
-
-Alternatively you can play in Colab above or in a notebook on your machine.
-
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/srush/Tensor-Puzzles/blob/main/Tensor%20Puzzlers.ipynb)
 
-If you are runing in a notebook, just uncomment the test for each example.
-If the test succeeds you will get a puppy. 
-
-[Start at Puzzle 1!](#puzzle-1---ones).
-
-
-
-### Test Harness
+After you convince yourself it is right, uncomment the test for each example. If the test succeeds, you will get a puppy. 
 
 ## Puzzle 1 - ones
 
