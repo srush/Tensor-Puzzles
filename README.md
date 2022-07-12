@@ -1,8 +1,7 @@
 # Tensor Puzzles
-- by [Sasha Rush](http://rush-nlp.com) - [srush_nlp](https://twitter.com/srush_nlp) 
+- by [Sasha Rush](http://rush-nlp.com) - [srush_nlp](https://twitter.com/srush_nlp) (with Marco Treviso)
 
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/srush/Tensor-Puzzles/blob/main/Tensor%20Puzzlers.ipynb)
 
 
 
@@ -20,6 +19,10 @@ in a simplified environment. Each puzzle asks you to reimplement one
 function in the NumPy standard library without magic. 
 
 
+I recommend running in Colab. Click here and copy the notebook to get start.
+
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/srush/Tensor-Puzzles/blob/main/Tensor%20Puzzlers.ipynb)
+
 
 ```python
 !pip install -qqq torchtyping hypothesis pytest git+https://github.com/danoneata/chalk@srush-patch-1
@@ -32,18 +35,20 @@ from lib import draw_examples, make_test
 import torch
 import numpy as np
 from torchtyping import TensorType as TT
-```
-
-
-```python
 tensor = torch.tensor
-#
-# ## Rules
-#
-# 1. Each puzzle needs to be solved in 1 line (<80 columns) of code.
-# 2. You are allowed @, arithmetic, comparison, `shape`, any indexing (e.g. `a[:j], a[:, None], a[arange(10)]`), and previous puzzle functions.
-# 3. Additionally you are allowed these two functions:
 ```
+
+## Rules
+
+1. These puzzles are about broadcasting. Know this rule.
+
+![](https://pbs.twimg.com/media/FQywor0WYAssn7Y?format=png&name=large)
+
+2. Each puzzle needs to be solved in 1 line (<80 columns) of code.
+3. You are allowed @, arithmetic, comparison, `shape`, any indexing (e.g. `a[:j], a[:, None], a[arange(10)]`), and previous puzzle functions.
+4. You are *not allowed* anything else. No `view`, `sum`, `take`, `squeeze`, `tensor`.
+
+5. You can start with these two functions:
 
 
 ```python
@@ -52,13 +57,18 @@ def arange(i: int):
     return torch.tensor(range(i))
 
 draw_examples("arange", [{"" : arange(i)} for i in [5, 3, 9]])
+
+
+examples = [(arange(4), arange(5)[:, None]) ,
+            (arange(3)[:, None], arange(2))]
+draw_examples("broadcast", [{"a": a, "b":b, "ret": a + b} for a, b in examples])
 ```
 
 
 
 
     
-![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_4_0.svg)
+![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_7_0.svg)
     
 
 
@@ -66,10 +76,10 @@ draw_examples("arange", [{"" : arange(i)} for i in [5, 3, 9]])
 
 ```python
 def where(q, a, b):
-    "Use this statement to replace an if-statement."
+    "Use this function to replace an if-statement."
     return (q * a) + (~q) * b
 
-# In my diagrams, orange is positive/True, where is zero/False, and green is negative.
+# In diagrams, orange is positive/True, where is zero/False, and blue is negative.
 
 examples = [(tensor([False]), tensor([10]), tensor([0])),
             (tensor([False, True]), tensor([1, 1]), tensor([-10, 0])),
@@ -81,56 +91,20 @@ examples = [(tensor([False]), tensor([10]), tensor([0])),
 
 draw_examples("where", [{"q": q, "a":a, "b":b, "ret": where(q, a, b)} for q, a, b in examples])
 
+
+# ## Puzzle 1 - ones
+#
+# Compute [ones](https://numpy.org/doc/stable/reference/generated/numpy.ones.html) - the vector of all ones.
 ```
 
 
 
 
     
-![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_5_0.svg)
+![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_8_0.svg)
     
 
 
-
-### Anti-Rules
-
-1. Nothing else. No `view`, `sum`, `take`, `squeeze`, `tensor`.
-2. No cheating. Stackoverflow is great, but this is about first-principles.
-3. Hint... these puzzles are mostly about Broadcasting. Make sure you understand this rule.
-
-After you convince yourself your code is correct, run the cell to test it. If the test succeeds, you will get a puppy 🐶.
-
-![](https://pbs.twimg.com/media/FQywor0WYAssn7Y?format=png&name=large)
-
-
-```python
-examples = [(arange(4), arange(5)[:, None]) ,
-            (arange(3)[:, None], arange(2))]
-draw_examples("broadcast", [{"a": a, "b":b, "ret": a + b} for a, b in examples])
-```
-
-
-
-
-    
-![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_9_0.svg)
-    
-
-
-
-## Running puzzles
-
-Each example, corresponds to a unit test which will randomly
-try to break your code based on the spec. The spec is written in
-standard python with lists.
-
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/srush/Tensor-Puzzles/blob/main/Tensor%20Puzzlers.ipynb)
-
-After you convince yourself it is right, uncomment the test for each example. If the test succeeds, you will get a puppy. 
-
-## Puzzle 1 - ones
-
-Compute [ones](https://numpy.org/doc/stable/reference/generated/numpy.ones.html) - the vector of all ones.
 
 
 ```python
@@ -146,7 +120,7 @@ test_ones = make_test("one", ones, ones_spec, add_sizes=["i"])
 
 
     
-![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_12_0.svg)
+![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_9_0.svg)
     
 
 
@@ -175,7 +149,7 @@ test_sum = make_test("sum", sum, sum_spec)
 
 
     
-![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_15_0.svg)
+![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_12_0.svg)
     
 
 
@@ -203,7 +177,7 @@ test_outer = make_test("outer", outer, outer_spec)
 
 
     
-![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_18_0.svg)
+![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_15_0.svg)
     
 
 
@@ -231,7 +205,7 @@ test_diag = make_test("diag", diag, diag_spec)
 
 
     
-![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_21_0.svg)
+![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_18_0.svg)
     
 
 
@@ -258,7 +232,7 @@ test_eye = make_test("eye", eye, eye_spec, add_sizes=["j"])
 
 
     
-![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_24_0.svg)
+![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_21_0.svg)
     
 
 
@@ -290,7 +264,7 @@ test_triu = make_test("triu", triu, triu_spec, add_sizes=["j"])
 
 
     
-![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_27_0.svg)
+![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_24_0.svg)
     
 
 
@@ -319,7 +293,7 @@ test_cumsum = make_test("cumsum", cumsum, cumsum_spec)
 
 
     
-![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_30_0.svg)
+![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_27_0.svg)
     
 
 
@@ -347,7 +321,7 @@ test_diff = make_test("diff", diff, diff_spec, add_sizes=["i"])
 
 
     
-![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_33_0.svg)
+![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_30_0.svg)
     
 
 
@@ -376,7 +350,7 @@ test_vstack = make_test("vstack", vstack, vstack_spec)
 
 
     
-![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_36_0.svg)
+![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_33_0.svg)
     
 
 
@@ -407,7 +381,7 @@ test_roll = make_test("roll", roll, roll_spec, add_sizes=["i"])
 
 
     
-![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_39_0.svg)
+![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_36_0.svg)
     
 
 
@@ -435,7 +409,7 @@ test_flip = make_test("flip", flip, flip_spec, add_sizes=["i"])
 
 
     
-![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_42_0.svg)
+![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_39_0.svg)
     
 
 
@@ -467,7 +441,7 @@ test_compress = make_test("compress", compress, compress_spec, add_sizes=["i"])
 
 
     
-![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_45_0.svg)
+![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_42_0.svg)
     
 
 
@@ -497,7 +471,7 @@ test_pad_to = make_test("pad_to", pad_to, pad_to_spec, add_sizes=["i", "j"])
 
 
     
-![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_48_0.svg)
+![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_45_0.svg)
     
 
 
@@ -537,7 +511,7 @@ test_sequence = make_test("sequence_mask",
 
 
     
-![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_51_0.svg)
+![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_48_0.svg)
     
 
 
@@ -572,7 +546,7 @@ test_bincount = make_test("bincount",
 
 
     
-![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_54_0.svg)
+![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_51_0.svg)
     
 
 
@@ -607,7 +581,7 @@ test_scatter_add = make_test("scatter_add",
 
 
     
-![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_57_0.svg)
+![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_54_0.svg)
     
 
 
@@ -637,7 +611,7 @@ test_flatten = make_test("flatten", flatten, flatten_spec, add_sizes=["i", "j"])
 
 
     
-![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_60_0.svg)
+![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_57_0.svg)
     
 
 
@@ -664,7 +638,7 @@ test_linspace = make_test("linspace", linspace, linspace_spec, add_sizes=["n"])
 
 
     
-![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_63_0.svg)
+![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_60_0.svg)
     
 
 
@@ -694,7 +668,7 @@ test_heaviside = make_test("heaviside", heaviside, heaviside_spec)
 
 
     
-![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_66_0.svg)
+![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_63_0.svg)
     
 
 
@@ -732,7 +706,7 @@ test_repeat = make_test("repeat", repeat, repeat_spec, constraint=constraint_set
 
 
     
-![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_69_0.svg)
+![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_66_0.svg)
     
 
 
@@ -768,7 +742,7 @@ test_bucketize = make_test("bucketize", bucketize, bucketize_spec,
 
 
     
-![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_70_0.svg)
+![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_67_0.svg)
     
 
 
