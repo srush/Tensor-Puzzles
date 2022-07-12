@@ -20,34 +20,6 @@ in a simplified environment. Each puzzle asks you to reimplement one
 function in the NumPy standard library without magic. 
 
 
-* [Rules](#Rules)
-* [Puzzle 1 - ones](#puzzle-1---ones).
-* [Puzzle 2 - sum](#puzzle-2---sum).
-* [Puzzle 3 - outer](#puzzle-3---outer).
-* [Puzzle 4 - diag](#puzzle-4---diag).
-* [Puzzle 5 - eye](#puzzle-5---eye).
-* [Puzzle 6 - triu](#puzzle-6---triu).
-* [Puzzle 7 - cumsum](#puzzle-7---cumsum).
-* [Puzzle 8 - diff](#puzzle-8---diff).
-* [Puzzle 9 - vstack](#puzzle-9---vstack).
-* [Puzzle 10 - roll](#puzzle-10---roll).
-* [Puzzle 11 - flip](#puzzle-11---flip).
-* [Puzzle 12 - compress](#puzzle-12---compress).
-* [Puzzle 13 - pad_to](#puzzle-13---pad_to).
-* [Puzzle 14 - sequence_mask](#puzzle-14---sequence_mask).
-* [Puzzle 15 - bincount](#puzzle-15---bincount).
-* [Puzzle 16 - scatter_add](#puzzle-16---scatter_add).
-* [Puzzle 17 -flatten](#18\)-flatten)
-* [linspace](#19\)-linspace)
-* [heaviside](#20\)-heaviside)
-* [hstack](#21\)-hstack)
-* [view](#22\)-view-\(1d-to-2d\))
-* [repeat](#23\)-repeat-\(1d\))
-* [repeat_interleave](#24\)-repeat_interleave-\(1d\))
-* [chunk](#25\)-chunk)
-* [nonzero](#26\)-nonzero)
-* [bucketize](#27\)-bucketize)
-
 
 ```python
 !pip install -qqq torchtyping hypothesis pytest git+https://github.com/danoneata/chalk@srush-patch-1
@@ -126,7 +98,7 @@ draw_examples("where", [{"q": q, "a":a, "b":b, "ret": where(q, a, b)} for q, a, 
 2. No cheating. Stackoverflow is great, but this is about first-principles.
 3. Hint... these puzzles are mostly about Broadcasting. Make sure you understand this rule.
 
-🐶🐶🐶 After you convince yourself your code is correct, run the cell to test it. If the test succeeds, you will get a puppy 🐶🐶🐶.
+After you convince yourself your code is correct, run the cell to test it. If the test succeeds, you will get a puppy 🐶.
 
 ![](https://pbs.twimg.com/media/FQywor0WYAssn7Y?format=png&name=large)
 
