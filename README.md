@@ -37,13 +37,41 @@ function in the NumPy standard library without magic.
 * [Puzzle 14 - sequence_mask](#puzzle-14---sequence_mask).
 * [Puzzle 15 - bincount](#puzzle-15---bincount).
 * [Puzzle 16 - scatter_add](#puzzle-16---scatter_add).
+* [Puzzle 17 -flatten](#18\)-flatten)
+* [linspace](#19\)-linspace)
+* [heaviside](#20\)-heaviside)
+* [hstack](#21\)-hstack)
+* [view](#22\)-view-\(1d-to-2d\))
+* [repeat](#23\)-repeat-\(1d\))
+* [repeat_interleave](#24\)-repeat_interleave-\(1d\))
+* [chunk](#25\)-chunk)
+* [nonzero](#26\)-nonzero)
+* [bucketize](#27\)-bucketize)
 
 
-## Rules
+```python
+!pip install -qqq torchtyping hypothesis pytest git+https://github.com/danoneata/chalk@srush-patch-1
+!wget -q https://github.com/srush/Tensor-Puzzles/raw/main/lib.py
+```
 
-1. Each puzzle needs to be solved in 1 line (<80 columns) of code.
-2. You are allowed @, arithmetic, comparison, `shape`, any indexing (e.g. `a[:j], a[:, None], a[arange(10)]`), and previous puzzle functions.
-3. Additionally you are allowed these two functions:
+
+```python
+from lib import draw_examples, make_test
+import torch
+import numpy as np
+from torchtyping import TensorType as TT
+```
+
+
+```python
+tensor = torch.tensor
+#
+# ## Rules
+#
+# 1. Each puzzle needs to be solved in 1 line (<80 columns) of code.
+# 2. You are allowed @, arithmetic, comparison, `shape`, any indexing (e.g. `a[:j], a[:, None], a[arange(10)]`), and previous puzzle functions.
+# 3. Additionally you are allowed these two functions:
+```
 
 
 ```python
@@ -51,13 +79,16 @@ def arange(i: int):
     "Use this function to replace a for-loop."
     return torch.tensor(range(i))
 
-draw_examples("arange", [{str(i) : arange(i)} for i in [5, 3, 9]])
+draw_examples("arange", [{"" : arange(i)} for i in [5, 3, 9]])
 ```
 
 
+
+
     
-![png](Tensor%20Puzzlers_files/Tensor%20Puzzlers_2_0.png)
+![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_4_0.svg)
     
+
 
 
 
@@ -81,9 +112,12 @@ draw_examples("where", [{"q": q, "a":a, "b":b, "ret": where(q, a, b)} for q, a, 
 ```
 
 
+
+
     
-![png](Tensor%20Puzzlers_files/Tensor%20Puzzlers_3_0.png)
+![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_5_0.svg)
     
+
 
 
 ### Anti-Rules
@@ -92,6 +126,8 @@ draw_examples("where", [{"q": q, "a":a, "b":b, "ret": where(q, a, b)} for q, a, 
 2. No cheating. Stackoverflow is great, but this is about first-principles.
 3. Hint... these puzzles are mostly about Broadcasting. Make sure you understand this rule.
 
+🐶🐶🐶 After you convince yourself your code is correct, run the cell to test it. If the test succeeds, you will get a puppy 🐶🐶🐶.
+
 ![](https://pbs.twimg.com/media/FQywor0WYAssn7Y?format=png&name=large)
 
 
@@ -99,13 +135,15 @@ draw_examples("where", [{"q": q, "a":a, "b":b, "ret": where(q, a, b)} for q, a, 
 examples = [(arange(4), arange(5)[:, None]) ,
             (arange(3)[:, None], arange(2))]
 draw_examples("broadcast", [{"a": a, "b":b, "ret": a + b} for a, b in examples])
-
 ```
 
 
+
+
     
-![png](Tensor%20Puzzlers_files/Tensor%20Puzzlers_6_0.png)
+![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_9_0.svg)
     
+
 
 
 ## Running puzzles
@@ -129,14 +167,14 @@ def ones_spec(out):
         out[i] = 1
         
 def ones(i: int) -> TT["i"]:
-    assert False, 'Not implemented yet.'
+    raise NotImplementedError
 
 test_ones = make_test("one", ones, ones_spec, add_sizes=["i"])
 ```
 
 
     
-![png](Tensor%20Puzzlers_files/Tensor%20Puzzlers_9_0.png)
+![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_12_0.svg)
     
 
 
@@ -157,7 +195,7 @@ def sum_spec(a, out):
         out[0] += a[i]
         
 def sum(a: TT["i"]) -> TT[1]:
-    assert False, 'Not implemented yet.'
+    raise NotImplementedError
 
 
 test_sum = make_test("sum", sum, sum_spec)
@@ -165,7 +203,7 @@ test_sum = make_test("sum", sum, sum_spec)
 
 
     
-![png](Tensor%20Puzzlers_files/Tensor%20Puzzlers_12_0.png)
+![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_15_0.svg)
     
 
 
@@ -186,14 +224,14 @@ def outer_spec(a, b, out):
             out[i][j] = a[i] * b[j]
             
 def outer(a: TT["i"], b: TT["j"]) -> TT["i", "j"]:
-    assert False, 'Not implemented yet.'
+    raise NotImplementedError
     
 test_outer = make_test("outer", outer, outer_spec)
 ```
 
 
     
-![png](Tensor%20Puzzlers_files/Tensor%20Puzzlers_15_0.png)
+![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_18_0.svg)
     
 
 
@@ -213,7 +251,7 @@ def diag_spec(a, out):
         out[i] = a[i][i]
         
 def diag(a: TT["i", "i"]) -> TT["i"]:
-    assert False, 'Not implemented yet.'
+    raise NotImplementedError
 
 
 test_diag = make_test("diag", diag, diag_spec)
@@ -221,7 +259,7 @@ test_diag = make_test("diag", diag, diag_spec)
 
 
     
-![png](Tensor%20Puzzlers_files/Tensor%20Puzzlers_18_0.png)
+![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_21_0.svg)
     
 
 
@@ -241,14 +279,14 @@ def eye_spec(out):
         out[i][i] = 1
         
 def eye(j: int) -> TT["j", "j"]:
-    assert False, 'Not implemented yet.'
+    raise NotImplementedError
     
 test_eye = make_test("eye", eye, eye_spec, add_sizes=["j"])
 ```
 
 
     
-![png](Tensor%20Puzzlers_files/Tensor%20Puzzlers_21_0.png)
+![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_24_0.svg)
     
 
 
@@ -272,7 +310,7 @@ def triu_spec(out):
                 out[i][j] = 0
                 
 def triu(j: int) -> TT["j", "j"]:
-    assert False, 'Not implemented yet.'
+    raise NotImplementedError
 
 
 test_triu = make_test("triu", triu, triu_spec, add_sizes=["j"])
@@ -280,7 +318,7 @@ test_triu = make_test("triu", triu, triu_spec, add_sizes=["j"])
 
 
     
-![png](Tensor%20Puzzlers_files/Tensor%20Puzzlers_24_0.png)
+![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_27_0.svg)
     
 
 
@@ -302,14 +340,14 @@ def cumsum_spec(a, out):
         total += a[i]
 
 def cumsum(a: TT["i"]) -> TT["i"]:
-    assert False, 'Not implemented yet.'
+    raise NotImplementedError
 
 test_cumsum = make_test("cumsum", cumsum, cumsum_spec)
 ```
 
 
     
-![png](Tensor%20Puzzlers_files/Tensor%20Puzzlers_27_0.png)
+![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_30_0.svg)
     
 
 
@@ -330,14 +368,14 @@ def diff_spec(a, out):
         out[i] = a[i] - a[i - 1]
 
 def diff(a: TT["i"], i: int) -> TT["i"]:
-    assert False, 'Not implemented yet.'
+    raise NotImplementedError
 
 test_diff = make_test("diff", diff, diff_spec, add_sizes=["i"])
 ```
 
 
     
-![png](Tensor%20Puzzlers_files/Tensor%20Puzzlers_30_0.png)
+![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_33_0.svg)
     
 
 
@@ -358,7 +396,7 @@ def vstack_spec(a, b, out):
         out[1][i] = b[i]
 
 def vstack(a: TT["i"], b: TT["i"]) -> TT[2, "i"]:
-    assert False, 'Not implemented yet.'
+    raise NotImplementedError
 
 
 test_vstack = make_test("vstack", vstack, vstack_spec)
@@ -366,7 +404,7 @@ test_vstack = make_test("vstack", vstack, vstack_spec)
 
 
     
-![png](Tensor%20Puzzlers_files/Tensor%20Puzzlers_33_0.png)
+![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_36_0.svg)
     
 
 
@@ -389,7 +427,7 @@ def roll_spec(a, out):
             out[i] = a[i + 1 - len(out)]
             
 def roll(a: TT["i"], i: int) -> TT["i"]:
-    assert False, 'Not implemented yet.'
+    raise NotImplementedError
 
 
 test_roll = make_test("roll", roll, roll_spec, add_sizes=["i"])
@@ -397,7 +435,7 @@ test_roll = make_test("roll", roll, roll_spec, add_sizes=["i"])
 
 
     
-![png](Tensor%20Puzzlers_files/Tensor%20Puzzlers_36_0.png)
+![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_39_0.svg)
     
 
 
@@ -417,7 +455,7 @@ def flip_spec(a, out):
         out[i] = a[len(out) - i - 1]
         
 def flip(a: TT["i"], i: int) -> TT["i"]:
-    assert False, 'Not implemented yet.'
+    raise NotImplementedError
 
 
 test_flip = make_test("flip", flip, flip_spec, add_sizes=["i"])
@@ -425,7 +463,7 @@ test_flip = make_test("flip", flip, flip_spec, add_sizes=["i"])
 
 
     
-![png](Tensor%20Puzzlers_files/Tensor%20Puzzlers_39_0.png)
+![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_42_0.svg)
     
 
 
@@ -449,7 +487,7 @@ def compress_spec(g, v, out):
             j += 1
             
 def compress(g: TT["i", bool], v: TT["i"], i:int) -> TT["i"]:
-    assert False, 'Not implemented yet.'
+    raise NotImplementedError
 
 
 test_compress = make_test("compress", compress, compress_spec, add_sizes=["i"])
@@ -457,7 +495,7 @@ test_compress = make_test("compress", compress, compress_spec, add_sizes=["i"])
 
 
     
-![png](Tensor%20Puzzlers_files/Tensor%20Puzzlers_42_0.png)
+![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_45_0.svg)
     
 
 
@@ -479,7 +517,7 @@ def pad_to_spec(a, out):
 
 
 def pad_to(a: TT["i"], i: int, j: int) -> TT["j"]:
-    assert False, 'Not implemented yet.'
+    raise NotImplementedError
 
 
 test_pad_to = make_test("pad_to", pad_to, pad_to_spec, add_sizes=["i", "j"])
@@ -487,7 +525,7 @@ test_pad_to = make_test("pad_to", pad_to, pad_to_spec, add_sizes=["i", "j"])
 
 
     
-![png](Tensor%20Puzzlers_files/Tensor%20Puzzlers_45_0.png)
+![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_48_0.svg)
     
 
 
@@ -512,7 +550,7 @@ def sequence_mask_spec(values, length, out):
                 out[i][j] = 0
     
 def sequence_mask(values: TT["i", "j"], length: TT["i", int]) -> TT["i", "j"]:
-    assert False, 'Not implemented yet.'
+    raise NotImplementedError
 
 
 def constraint_set_length(d):
@@ -527,7 +565,7 @@ test_sequence = make_test("sequence_mask",
 
 
     
-![png](Tensor%20Puzzlers_files/Tensor%20Puzzlers_48_0.png)
+![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_51_0.svg)
     
 
 
@@ -547,7 +585,7 @@ def bincount_spec(a, out):
         out[a[i]] += 1
         
 def bincount(a: TT["i"], j: int) -> TT["j"]:
-    assert False, 'Not implemented yet.'
+    raise NotImplementedError
 
 
 def constraint_set_max(d):
@@ -562,7 +600,7 @@ test_bincount = make_test("bincount",
 
 
     
-![png](Tensor%20Puzzlers_files/Tensor%20Puzzlers_51_0.png)
+![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_54_0.svg)
     
 
 
@@ -582,7 +620,7 @@ def scatter_add_spec(values, link, out):
         out[link[j]] += values[j]
         
 def scatter_add(values: TT["i"], link: TT["i"], j: int) -> TT["j"]:
-    assert False, 'Not implemented yet.'
+    raise NotImplementedError
 
 
 def constraint_set_max(d):
@@ -597,7 +635,7 @@ test_scatter_add = make_test("scatter_add",
 
 
     
-![png](Tensor%20Puzzlers_files/Tensor%20Puzzlers_54_0.png)
+![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_57_0.svg)
     
 
 
@@ -606,10 +644,161 @@ test_scatter_add = make_test("scatter_add",
 # run_test(test_scatter_add)
 ```
 
+## Puzzle 17 - flatten
 
-# Speed Run Mode!
+Compute [flatten](https://numpy.org/doc/stable/reference/generated/numpy.ndarray.flatten.html)
 
-What is the smallest you can make each of these?
+
+```python
+def flatten_spec(a, out):
+    k = 0
+    for i in range(len(a)):
+        for j in range(len(a[0])):
+            out[k] = a[i][j]
+            k += 1
+
+def flatten(a: TT["i", "j"], i:int, j:int) -> TT["i * j"]:
+    raise NotImplementedError
+
+test_flatten = make_test("flatten", flatten, flatten_spec, add_sizes=["i", "j"])
+```
+
+
+    
+![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_60_0.svg)
+    
+
+
+
+```python
+# run_test(test_flatten)
+```
+
+## Puzzle 18 - linspace
+
+Compute [linspace](https://numpy.org/doc/stable/reference/generated/numpy.linspace.html)
+
+
+```python
+def linspace_spec(i, j, out):
+    for k in range(len(out)):
+        out[k] = float(i + (j - i) * k / max(1, len(out) - 1))
+
+def linspace(i: TT[1], j: TT[1], n: int) -> TT["n", float]:
+    raise NotImplementedError
+
+test_linspace = make_test("linspace", linspace, linspace_spec, add_sizes=["n"])
+```
+
+
+    
+![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_63_0.svg)
+    
+
+
+
+```python
+# run_test(test_linspace)
+```
+
+## Puzzle 19 - heaviside
+
+Compute [heaviside](https://numpy.org/doc/stable/reference/generated/numpy.heaviside.html)
+
+
+```python
+def heaviside_spec(a, b, out):
+    for k in range(len(out)):
+        if a[k] == 0:
+            out[k] = b[k]
+        else:
+            out[k] = int(a[k] > 0)
+
+def heaviside(a: TT["i"], b: TT["i"]) -> TT["i"]:
+    raise NotImplementedError
+
+test_heaviside = make_test("heaviside", heaviside, heaviside_spec)
+```
+
+
+    
+![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_66_0.svg)
+    
+
+
+
+```python
+# run_test(test_heaviside)
+```
+
+## Puzzle 20 - repeat (1d)
+
+Compute [repeat](https://pytorch.org/docs/stable/generated/torch.Tensor.repeat.html)
+
+
+```python
+def repeat_spec(a, d, out):
+    for i in range(d[0]):
+        for k in range(len(a)):
+            out[i][k] = a[k]
+
+def constraint_set(d):
+    d["d"][0] = d["return"].shape[0]
+    return d
+
+            
+def repeat(a: TT["i"], d: TT[1]) -> TT["d", "i"]:
+    raise NotImplementedError
+
+test_repeat = make_test("repeat", repeat, repeat_spec, constraint=constraint_set)
+
+
+# ## Puzzle 21 - bucketize
+#
+# Compute [bucketize](https://pytorch.org/docs/stable/generated/torch.bucketize.html)
+```
+
+
+    
+![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_69_0.svg)
+    
+
+
+
+```python
+def bucketize_spec(v, boundaries, out):
+    for i, val in enumerate(v):
+        out[i] = 0
+        for j in range(len(boundaries)-1):
+            if val >= boundaries[j]:
+                out[i] = j + 1
+        if val >= boundaries[-1]:
+            out[i] = len(boundaries)
+
+
+def constraint_set(d):
+    d["boundaries"] = np.abs(d["boundaries"]).cumsum()
+    return d
+
+            
+def bucketize(v: TT["i"], boundaries: TT["j"]) -> TT["i"]:
+    raise NotImplementedError
+
+test_bucketize = make_test("bucketize", bucketize, bucketize_spec,
+                           constraint=constraint_set)
+
+
+#
+# # Speed Run Mode!
+#
+# What is the smallest you can make each of these?
+```
+
+
+    
+![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_70_0.svg)
+    
+
 
 
 ```python
@@ -626,20 +815,20 @@ for fn in fns:
         print(fn.__name__, len(lines[1]))
 ```
 
-    ones 40
-    sum 40
-    outer 40
-    diag 40
-    eye 40
-    triu 40
-    cumsum 40
-    diff 40
-    vstack 40
-    roll 40
-    flip 40
-    compress 40
-    pad_to 40
-    sequence_mask 40
-    bincount 40
-    scatter_add 40
+    ones 29
+    sum 29
+    outer 29
+    diag 29
+    eye 29
+    triu 29
+    cumsum 29
+    diff 29
+    vstack 29
+    roll 29
+    flip 29
+    compress 29
+    pad_to 29
+    sequence_mask 29
+    bincount 29
+    scatter_add 29
 
