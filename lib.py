@@ -199,7 +199,7 @@ def make_test(name, problem, problem_spec, add_sizes=[], constraint=lambda d: d)
         out2 = problem(*map(tensor, d.values()))
         out = tensor(out)
         out2 = torch.broadcast_to(out2, out.shape)
-        assert torch.equal(
+        assert torch.allclose(
             out, out2
         ), "Two tensors are not equal\n Spec: \n\t%s \n\t%s" % (out, out2)
 
