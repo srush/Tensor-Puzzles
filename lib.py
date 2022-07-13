@@ -47,9 +47,11 @@ def grid(diagrams):
                        for j, col in enumerate(row)], 1.0) for i, row in enumerate(diagrams)], 1.0)
             
 def draw_example(data):
-    cols = []
+    
+
     name = data["name"]
     keys = list(data["vals"][0].keys())
+    cols = [[vstrut(0)] + [vstrut(0.5) / text(f"Ex. {i}", 0.5).fill_color(Color("black")).line_width(0.0) / vstrut(0.5) for i in range(len(data["vals"]))]]
     for k in keys:
         mat = [(vstrut(0.5) / text(k, 0.5).fill_color(Color("black")).line_width(0.0) / vstrut(0.5))]         
         for ex in data["vals"]:
@@ -61,7 +63,7 @@ def draw_example(data):
     
     full = (
         vstrut(1)
-        / text(name, 1)
+        / text(name, 0.75).fill_color(Color("black")).line_width(0)
         / vstrut(1)
         / full.center_xy()
     )
