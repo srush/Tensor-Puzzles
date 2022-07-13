@@ -31,7 +31,7 @@ I recommend running in Colab. Click here and copy the notebook to get start.
 
 
 ```python
-from lib import draw_examples, make_test
+from lib import draw_examples, make_test, run_test
 import torch
 import numpy as np
 from torchtyping import TensorType as TT
@@ -99,14 +99,7 @@ examples = [(tensor([False]), tensor([10]), tensor([0])),
             (tensor([[False, True], [True, False]]), tensor([1]), tensor([-10, 0])),
             (tensor([[False, True], [True, False]]), tensor([[0], [10]]), tensor([-10, 0])),
            ]
-            
-
 draw_examples("where", [{"q": q, "a":a, "b":b, "ret": where(q, a, b)} for q, a, b in examples])
-
-
-# ## Puzzle 1 - ones
-#
-# Compute [ones](https://numpy.org/doc/stable/reference/generated/numpy.ones.html) - the vector of all ones.
 ```
 
 
@@ -117,6 +110,10 @@ draw_examples("where", [{"q": q, "a":a, "b":b, "ret": where(q, a, b)} for q, a, 
     
 
 
+
+## Puzzle 1 - ones
+
+Compute [ones](https://numpy.org/doc/stable/reference/generated/numpy.ones.html) - the vector of all ones.
 
 
 ```python
@@ -132,7 +129,7 @@ test_ones = make_test("one", ones, ones_spec, add_sizes=["i"])
 
 
     
-![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_10_0.svg)
+![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_11_0.svg)
     
 
 
@@ -161,7 +158,7 @@ test_sum = make_test("sum", sum, sum_spec)
 
 
     
-![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_13_0.svg)
+![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_14_0.svg)
     
 
 
@@ -189,7 +186,7 @@ test_outer = make_test("outer", outer, outer_spec)
 
 
     
-![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_16_0.svg)
+![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_17_0.svg)
     
 
 
@@ -217,7 +214,7 @@ test_diag = make_test("diag", diag, diag_spec)
 
 
     
-![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_19_0.svg)
+![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_20_0.svg)
     
 
 
@@ -244,7 +241,7 @@ test_eye = make_test("eye", eye, eye_spec, add_sizes=["j"])
 
 
     
-![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_22_0.svg)
+![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_23_0.svg)
     
 
 
@@ -276,7 +273,7 @@ test_triu = make_test("triu", triu, triu_spec, add_sizes=["j"])
 
 
     
-![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_25_0.svg)
+![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_26_0.svg)
     
 
 
@@ -305,7 +302,7 @@ test_cumsum = make_test("cumsum", cumsum, cumsum_spec)
 
 
     
-![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_28_0.svg)
+![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_29_0.svg)
     
 
 
@@ -333,7 +330,7 @@ test_diff = make_test("diff", diff, diff_spec, add_sizes=["i"])
 
 
     
-![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_31_0.svg)
+![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_32_0.svg)
     
 
 
@@ -362,7 +359,7 @@ test_vstack = make_test("vstack", vstack, vstack_spec)
 
 
     
-![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_34_0.svg)
+![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_35_0.svg)
     
 
 
@@ -393,7 +390,7 @@ test_roll = make_test("roll", roll, roll_spec, add_sizes=["i"])
 
 
     
-![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_37_0.svg)
+![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_38_0.svg)
     
 
 
@@ -421,7 +418,7 @@ test_flip = make_test("flip", flip, flip_spec, add_sizes=["i"])
 
 
     
-![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_40_0.svg)
+![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_41_0.svg)
     
 
 
@@ -453,7 +450,7 @@ test_compress = make_test("compress", compress, compress_spec, add_sizes=["i"])
 
 
     
-![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_43_0.svg)
+![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_44_0.svg)
     
 
 
@@ -483,7 +480,7 @@ test_pad_to = make_test("pad_to", pad_to, pad_to_spec, add_sizes=["i", "j"])
 
 
     
-![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_46_0.svg)
+![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_47_0.svg)
     
 
 
@@ -523,7 +520,7 @@ test_sequence = make_test("sequence_mask",
 
 
     
-![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_49_0.svg)
+![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_50_0.svg)
     
 
 
@@ -558,7 +555,7 @@ test_bincount = make_test("bincount",
 
 
     
-![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_52_0.svg)
+![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_53_0.svg)
     
 
 
@@ -593,7 +590,7 @@ test_scatter_add = make_test("scatter_add",
 
 
     
-![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_55_0.svg)
+![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_56_0.svg)
     
 
 
@@ -623,7 +620,7 @@ test_flatten = make_test("flatten", flatten, flatten_spec, add_sizes=["i", "j"])
 
 
     
-![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_58_0.svg)
+![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_59_0.svg)
     
 
 
@@ -650,7 +647,7 @@ test_linspace = make_test("linspace", linspace, linspace_spec, add_sizes=["n"])
 
 
     
-![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_61_0.svg)
+![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_62_0.svg)
     
 
 
@@ -680,7 +677,7 @@ test_heaviside = make_test("heaviside", heaviside, heaviside_spec)
 
 
     
-![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_64_0.svg)
+![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_65_0.svg)
     
 
 
@@ -718,7 +715,7 @@ test_repeat = make_test("repeat", repeat, repeat_spec, constraint=constraint_set
 
 
     
-![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_67_0.svg)
+![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_68_0.svg)
     
 
 
@@ -754,7 +751,7 @@ test_bucketize = make_test("bucketize", bucketize, bucketize_spec,
 
 
     
-![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_68_0.svg)
+![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_69_0.svg)
     
 
 
