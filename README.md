@@ -13,7 +13,7 @@ do most things from first principles and clever use of broadcasting.
 
 
 
-This is a collection of 16 tensor puzzles. Like chess puzzles these are
+This is a collection of 21 tensor puzzles. Like chess puzzles these are
 not meant to simulate the complexity of a real program, but to practice
 in a simplified environment. Each puzzle asks you to reimplement one
 function in the NumPy standard library without magic. 
