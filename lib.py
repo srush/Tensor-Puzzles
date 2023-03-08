@@ -198,6 +198,7 @@ def make_test(name, problem, problem_spec, add_sizes=[], constraint=lambda d: d)
 
         out2 = problem(*map(tensor, d.values()))
         out = tensor(out)
+        assert out.shape == out2.shape, f"Two tensors have different shape\n Spec: \n\tExpect: {out.shape} \n\tGot: {out2.shape}"
         out2 = torch.broadcast_to(out2, out.shape)
         assert torch.allclose(
             out, out2
