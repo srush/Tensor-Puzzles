@@ -72,7 +72,7 @@ def draw_example(data):
     env = full.get_envelope()
     set_svg_height(50 * env.height)
     height = 50 * env.height
-    chalk.core.set_svg_output_height(500)
+    chalk.set_svg_height(300)
     return rectangle(env.width, env.height).fill_color(Color("white")) + full
     
 def draw_examples(name, examples):
