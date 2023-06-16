@@ -13,7 +13,7 @@ do most things from first principles and clever use of broadcasting.
 
 
 
-This is a collection of 16 tensor puzzles. Like chess puzzles these are
+This is a collection of 21 tensor puzzles. Like chess puzzles these are
 not meant to simulate the complexity of a real program, but to practice
 in a simplified environment. Each puzzle asks you to reimplement one
 function in the NumPy standard library without magic. 
@@ -706,19 +706,13 @@ def repeat(a: TT["i"], d: TT[1]) -> TT["d", "i"]:
     raise NotImplementedError
 
 test_repeat = make_test("repeat", repeat, repeat_spec, constraint=constraint_set)
-
-
-# ## Puzzle 21 - bucketize
-#
-# Compute [bucketize](https://pytorch.org/docs/stable/generated/torch.bucketize.html)
 ```
-
-
     
 ![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_68_0.svg)
-    
 
+## Puzzle 21 - bucketize
 
+Compute [bucketize](https://pytorch.org/docs/stable/generated/torch.bucketize.html)
 
 ```python
 def bucketize_spec(v, boundaries, out):
@@ -741,20 +735,11 @@ def bucketize(v: TT["i"], boundaries: TT["j"]) -> TT["i"]:
 
 test_bucketize = make_test("bucketize", bucketize, bucketize_spec,
                            constraint=constraint_set)
-
-
-#
-# # Speed Run Mode!
-#
-# What is the smallest you can make each of these?
 ```
-
-
-    
 ![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_69_0.svg)
-    
 
-
+## Speed Run Mode!
+What is the smallest you can make each of these?
 
 ```python
 import inspect
