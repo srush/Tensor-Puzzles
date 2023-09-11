@@ -10,9 +10,6 @@ StackOverflow) to find a magic function for everything.  But in
 practice, the tensor language is extremely expressive, and you can
 do most things from first principles and clever use of broadcasting.
 
-If you are interested, here is a walkthrough of the puzzles 
-
-[![Watch the video](https://img.youtube.com/vi/SiwTAyyvt5s/default.jpg)](https://youtu.be/SiwTAyyvt5s)
 
 This is a collection of 21 tensor puzzles. Like chess puzzles these are
 not meant to simulate the complexity of a real program, but to practice
@@ -23,6 +20,9 @@ function in the NumPy standard library without magic.
 I recommend running in Colab. Click here and copy the notebook to get start.
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/srush/Tensor-Puzzles/blob/main/Tensor%20Puzzlers.ipynb)
+
+If you are interested, there is also a youtube walkthrough of the puzzles 
+[![Watch the video](https://img.youtube.com/vi/SiwTAyyvt5s/default.jpg)](https://youtu.be/SiwTAyyvt5s)
 
 
 ```python
