@@ -4,14 +4,15 @@
 
 
 
-
 When learning a tensor programming language like PyTorch or Numpy it
 is tempting to rely on the standard library (or more honestly
 StackOverflow) to find a magic function for everything.  But in
 practice, the tensor language is extremely expressive, and you can
 do most things from first principles and clever use of broadcasting.
 
+If you are interested, here is a walkthrough of the puzzles 
 
+[![Watch the video](https://img.youtube.com/vi/SiwTAyyvt5s/default.jpg)](https://youtu.be/SiwTAyyvt5s)
 
 This is a collection of 21 tensor puzzles. Like chess puzzles these are
 not meant to simulate the complexity of a real program, but to practice
