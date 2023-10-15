@@ -23,8 +23,7 @@ I recommend running in Colab. Click here and copy the notebook to get start.
 
 If you are interested, there is also a youtube walkthrough of the puzzles 
 
-[![Watch the video](https://img.youtube.com/vi/SiwTAyyvt5s/default.jpg)](https://youtu.be/SiwTAyyvt5s)
-
+[![Watch the video](https://img.youtube.com/vi/SiwTAyyvt5s/default.jpg)](https://youtu.be/Hafo7hIl8MU)
 
 ```python
 !pip install -qqq torchtyping hypothesis pytest git+https://github.com/danoneata/chalk@srush-patch-1
