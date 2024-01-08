@@ -428,7 +428,37 @@ test_flip = make_test("flip", flip, flip_spec, add_sizes=["i"])
 # run_test(test_flip)
 ```
 
-## Puzzle 12 - compress
+## Puzzle 12 - pad_to
+
+
+Compute pad_to - eliminate or add 0s to change size of vector.
+
+
+```python
+def pad_to_spec(a, out):
+    for i in range(min(len(out), len(a))):
+        out[i] = a[i]
+
+
+def pad_to(a: TT["i"], i: int, j: int) -> TT["j"]:
+    raise NotImplementedError
+
+
+test_pad_to = make_test("pad_to", pad_to, pad_to_spec, add_sizes=["i", "j"])
+```
+
+
+    
+![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_47_0.svg)
+    
+
+
+
+```python
+# run_test(test_pad_to)
+```
+
+## Puzzle 13 - compress
 
 
 Compute [compress](https://numpy.org/doc/stable/reference/generated/numpy.compress.html) - keep only masked entries (left-aligned).
@@ -458,36 +488,6 @@ test_compress = make_test("compress", compress, compress_spec, add_sizes=["i"])
 
 ```python
 # run_test(test_compress)
-```
-
-## Puzzle 13 - pad_to
-
-
-Compute pad_to - eliminate or add 0s to change size of vector.
-
-
-```python
-def pad_to_spec(a, out):
-    for i in range(min(len(out), len(a))):
-        out[i] = a[i]
-
-
-def pad_to(a: TT["i"], i: int, j: int) -> TT["j"]:
-    raise NotImplementedError
-
-
-test_pad_to = make_test("pad_to", pad_to, pad_to_spec, add_sizes=["i", "j"])
-```
-
-
-    
-![svg](Tensor%20Puzzlers_files/Tensor%20Puzzlers_47_0.svg)
-    
-
-
-
-```python
-# run_test(test_pad_to)
 ```
 
 ## Puzzle 14 - sequence_mask
