@@ -92,7 +92,7 @@ def where(q, a, b):
     "Use this function to replace an if-statement."
     return (q * a) + (~q) * b
 
-# In diagrams, orange is positive/True, where is zero/False, and blue is negative.
+# In diagrams, orange is positive/True, white is zero/False, and blue is negative.
 
 examples = [(tensor([False]), tensor([10]), tensor([0])),
             (tensor([False, True]), tensor([1, 1]), tensor([-10, 0])),
