@@ -1,8 +1,9 @@
 jupytext
 torchtyping
 hypothesis
-torch==1.10
+torch
 numpy
 pytest
 notebookjs
 jupyter
+matplotlib
